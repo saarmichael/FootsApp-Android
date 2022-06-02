@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView tvRegisterActivity = findViewById(R.id.tvRegisterActivit);
+        TextView tvRegisterActivity = findViewById(R.id.tvRegisterActivity);
         // on click, go to RegisterActivity
         tvRegisterActivity.setOnClickListener(v -> {
             // start RegisterActivity
