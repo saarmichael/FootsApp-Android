@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".sign.RegisterActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -21,7 +21,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="@string/login_et_username"
+            android:hint="@string/register_et_username"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            android:autofillHints="" />
+
+        <EditText
+            android:id="@+id/etNickname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/register_et_nickname"
             android:inputType="textPersonName"
             android:minHeight="48dp"
             android:autofillHints="" />
@@ -31,20 +41,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="@string/login_et_password"
+            android:hint="@string/register_et_password"
+            android:inputType="textPassword"
+            android:minHeight="48dp"
+            android:autofillHints="" />
+
+        <EditText
+            android:id="@+id/etConfirmPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/register_et_confirm_password"
             android:inputType="textPassword"
             android:minHeight="48dp"
             android:autofillHints="" />
 
         <Button
-            android:id="@+id/btnLogin"
+            android:id="@+id/btnRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/login_btn_login" />
+            android:text="@string/register_btn_register" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/tvLoginActivity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="xcvz" />

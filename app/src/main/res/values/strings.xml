@@ -4,4 +4,9 @@
     <string name="login_et_username">username</string>
     <string name="login_et_password">password</string>
     <string name="login_btn_login">Login</string>
+    <string name="register_et_nickname">Choose your nickname</string>
+    <string name="register_et_username">Choose your username</string>
+    <string name="register_et_password">password</string>
+    <string name="register_et_confirm_password">Confirm password</string>
+    <string name="register_btn_register">REGISTER</string>
 </resources>
