@@ -7,6 +7,7 @@
     tools:context=".MainActivity">
 
     <LinearLayout
+        android:id="@+id/registerRedirectLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -18,13 +19,13 @@
 
         <TextView
             android:id="@+id/tvRegisterText"
-            android:paddingBottom="5dp"
-            android:paddingRight="20dp"
-            android:paddingLeft="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="5dp"
             android:textAlignment="center"
-            tools:text="don't have an account?" />
+            android:text="@string/login_tv_no_account" />
 
         <TextView
             android:id="@+id/tvRegisterActivit"
@@ -35,7 +36,7 @@
             android:paddingRight="20dp"
             android:textAlignment="center"
             android:textSize="20sp"
-            tools:text="click here to sign up" />
+            android:text="@string/login_tv_sign_up" />
 
     </LinearLayout>
 

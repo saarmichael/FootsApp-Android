@@ -9,4 +9,8 @@
     <string name="register_et_password">password</string>
     <string name="register_et_confirm_password">Confirm password</string>
     <string name="register_btn_register">REGISTER</string>
+    <string name="login_tv_sign_up">sign up 🤡</string>
+    <string name="login_tv_no_account">don\'t have an account?</string>
+    <string name="register_tv_account_msg">already have an account?</string>
+    <string name="register_tv_login">sign in 💖</string>
 </resources>

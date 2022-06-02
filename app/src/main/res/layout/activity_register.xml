@@ -8,6 +8,7 @@
 
 
     <LinearLayout
+        android:id="@+id/LoginRedirectLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -15,27 +16,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.120000005">
+        app:layout_constraintVertical_bias="0.43">
 
         <TextView
             android:id="@+id/tvLoginText"
-            android:paddingBottom="5dp"
-            android:paddingRight="20dp"
-            android:paddingLeft="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="5dp"
             android:textAlignment="center"
-            tools:text="already have an account?" />
+            android:text="@string/register_tv_account_msg" />
 
         <TextView
             android:id="@+id/tvLoginActivity"
-            android:paddingTop="5dp"
-            android:paddingRight="20dp"
-            android:paddingLeft="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingTop="5dp"
+            android:paddingRight="20dp"
             android:textAlignment="center"
-            tools:text="click here to sign in" />
+            android:text="@string/register_tv_login" />
 
     </LinearLayout>
 
