@@ -6,18 +6,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.example.footsapp_android.databinding.ActivityMainBinding;
 import com.example.footsapp_android.sign.RegisterActivity;
 
 public class MainActivity extends AppCompatActivity {
 
+    private ActivityMainBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        //setContentView(R.layout.activity_main);
 
-        TextView tvRegisterActivity = findViewById(R.id.tvRegisterActivity);
+        //TextView tvRegisterActivity = findViewById(R.id.tvRegisterActivity);
         // on click, go to RegisterActivity
-        tvRegisterActivity.setOnClickListener(v -> {
+        binding.tvRegisterActivity.setOnClickListener(v -> {
             // start RegisterActivity
             Intent intent = new Intent(this, RegisterActivity.class);
             startActivity(intent);
