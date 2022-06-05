@@ -13,4 +13,9 @@
     <string name="login_tv_no_account">don\'t have an account?</string>
     <string name="register_tv_account_msg">already have an account?</string>
     <string name="register_tv_login">sign in 💖</string>
+    <string name="friend_s_username">friend\'s username</string>
+    <string name="add_contact">add contact</string>
+    <string name="friend_s_nickname">friend\'s nickname</string>
+    <string name="friend_s_server">friend\'s server</string>
+    <string name="back_to_chats">go back to chats</string>
 </resources>
