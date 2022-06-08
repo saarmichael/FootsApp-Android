@@ -17,6 +17,12 @@
             android:name=".afterLogin.ContactsActivity"
             android:exported="false" />
         <activity
+            android:name=".AddChatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ChatsActivity"
+            android:exported="false" />
+        <activity
             android:name=".sign.RegisterActivity"
             android:exported="false" />
         <activity
