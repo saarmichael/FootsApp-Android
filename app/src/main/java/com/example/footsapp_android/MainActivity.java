@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
             String password = binding.etPassword.getText().toString();
             if (validateLogin(username, password)) {
                 // move to contacts activity
-                Intent intent = new Intent(this, ContactsActivity.class);
+                Intent intent = new Intent(this, ChatsActivity.class);
                 startActivity(intent);
             }
 
