@@ -1,4 +1,4 @@
-package com.example.footsapp_android;
+package com.example.footsapp_android.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
+import com.example.footsapp_android.AppDB;
+import com.example.footsapp_android.ContactDao;
+import com.example.footsapp_android.R;
 import com.example.footsapp_android.adapters.ContactsListAdapter;
 import com.example.footsapp_android.entities.Contact;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;

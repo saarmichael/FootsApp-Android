@@ -27,8 +27,8 @@ public class Contact {
         this.username = username;
         this.nickname = nickname;
         this.server = server;
-        this.lastMessage = "";
-        this.time = "";
+        this.lastMessage = "** No messages **";
+        this.time = "just now";
     }
 
     public String getUsername() {

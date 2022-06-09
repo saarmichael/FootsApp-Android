@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="404dp"
@@ -13,17 +13,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/profile_image"
-            android:layout_width="67dp"
-            android:layout_height="74dp"
-            android:src="@drawable/footsapp_home_logo"
-            app:civ_border_color="#FF000000"
-            app:civ_border_width="2dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-
-            />
 
         <LinearLayout
             android:id="@+id/contact_main_wrap"
@@ -40,6 +29,7 @@
                 android:paddingLeft="10dp"
                 android:paddingTop="5dp"
                 android:text="contact_name"
+                android:textColor="#FFFFFF"
                 android:textSize="20sp"
 
                 app:layout_constraintStart_toStartOf="@+id/profile_image" />
@@ -60,7 +50,7 @@
                     android:paddingLeft="10dp"
                     android:paddingTop="5dp"
                     android:text="contact_last_msg"
-                    android:textColor="#000000"
+                    android:textColor="#FFFFFF"
 
                     app:layout_constraintStart_toStartOf="@+id/profile_image" />
 

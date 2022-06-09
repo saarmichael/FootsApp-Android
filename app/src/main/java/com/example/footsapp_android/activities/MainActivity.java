@@ -1,17 +1,11 @@
-package com.example.footsapp_android;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.footsapp_android.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.TextView;
 
-import com.example.footsapp_android.afterLogin.ContactsActivity;
-import com.example.footsapp_android.databinding.ActivityMainBinding;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.footsapp_android.sign.RegisterActivity;
+import com.example.footsapp_android.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -71,6 +65,11 @@ public class MainActivity extends AppCompatActivity {
             }*/
         });
 
+        binding.buttonSettings.setOnClickListener(v -> {
+            // start ChangeThemeActivity
+            Intent intent = new Intent(this, ChangeThemeActivity.class);
+            startActivity(intent);
+        });
 
 
     }

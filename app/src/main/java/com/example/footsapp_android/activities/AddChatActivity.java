@@ -1,4 +1,4 @@
-package com.example.footsapp_android;
+package com.example.footsapp_android.activities;
 
 import android.os.Bundle;
 import android.widget.Button;
@@ -7,6 +7,9 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
+import com.example.footsapp_android.AppDB;
+import com.example.footsapp_android.ContactDao;
+import com.example.footsapp_android.R;
 import com.example.footsapp_android.entities.Contact;
 
 public class AddChatActivity extends AppCompatActivity {
