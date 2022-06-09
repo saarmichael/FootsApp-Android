@@ -7,6 +7,8 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
+import com.example.footsapp_android.entities.Contact;
+
 public class AddChatActivity extends AppCompatActivity {
 
     private AppDB db;

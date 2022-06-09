@@ -2,12 +2,14 @@ package com.example.footsapp_android;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
+import com.example.footsapp_android.adapters.ContactsListAdapter;
+import com.example.footsapp_android.entities.Contact;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -18,7 +20,7 @@ public class ChatsActivity extends AppCompatActivity {
     private AppDB db;
     private ContactDao contactDao;
     private List<Contact> contacts;
-    private ArrayAdapter<Contact> adapter;
+    private ContactsListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,18 +39,21 @@ public class ChatsActivity extends AppCompatActivity {
 
         contacts = new ArrayList<>();
 
-        ListView lvContacts = findViewById(R.id.lvContacts);
-        adapter = new ArrayAdapter<Contact>(this,
-                                            android.R.layout.simple_list_item_1,
-                                            contacts);
+        RecyclerView lvContacts = findViewById(R.id.lvContacts);
+        adapter = new ContactsListAdapter(this);
         lvContacts.setAdapter(adapter);
+        lvContacts.setLayoutManager(new LinearLayoutManager(this));
 
-        lvContacts.setOnItemLongClickListener((adapterView, view, i, l) -> {
+        contacts = contactDao.index();
+        adapter.setContacts(contacts);
+
+        // probably doesn't work with the new adapter
+        /*lvContacts.setOnItemLongClickListener((adapterView, view, i, l) -> {
             Contact contact = contacts.remove(i);
             contactDao.delete(contact);
             adapter.notifyDataSetChanged();
             return true;
-        });
+        });*/
     }
 
     @Override

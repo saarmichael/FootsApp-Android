@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="404dp"
@@ -22,8 +22,7 @@
             app:civ_border_width="2dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constrainBottom_toBottomOf="@+id/parent"
-            app:layout_constraintEnd_toEndOf=""
+
             />
 
         <LinearLayout
@@ -41,9 +40,9 @@
                 android:paddingLeft="10dp"
                 android:paddingTop="5dp"
                 android:text="contact_name"
-                android:textColor="@color/design_default_color_on_secondary"
+                android:textColor="#000000"
                 android:textSize="20sp"
-                android:verticalAlignment="center"
+
                 app:layout_constraintStart_toStartOf="@+id/profile_image" />
 
             <LinearLayout
@@ -62,8 +61,8 @@
                     android:paddingLeft="10dp"
                     android:paddingTop="5dp"
                     android:text="contact_last_msg"
-                    android:textColor="@color/material_dynamic_neutral50"
-                    android:verticalAlignment="center"
+                    android:textColor="#000000"
+
                     app:layout_constraintStart_toStartOf="@+id/profile_image" />
 
                 <TextView

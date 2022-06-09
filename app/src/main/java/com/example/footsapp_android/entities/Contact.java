@@ -1,4 +1,4 @@
-package com.example.footsapp_android;
+package com.example.footsapp_android.entities;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;

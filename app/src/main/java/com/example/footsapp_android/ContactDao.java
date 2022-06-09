@@ -6,6 +6,8 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.example.footsapp_android.entities.Contact;
+
 import java.util.List;
 
 @Dao
