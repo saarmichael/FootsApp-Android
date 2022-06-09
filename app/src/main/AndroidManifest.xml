@@ -14,7 +14,7 @@
         android:theme="@style/Theme.FootsAppAndroid"
         tools:targetApi="31">
         <activity
-            android:name=".ChangeThemeActivity"
+            android:name=".activities.ChangeThemeActivity"
             android:exported="false" />
         <activity
             android:name=".afterLogin.ContactsActivity"
