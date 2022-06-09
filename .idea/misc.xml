@@ -4,11 +4,14 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/saarm/AndroidStudioProjects/FootsAppAndroid/app/src/main/res/drawable-anydpi/footApp_logo.xml" value="0.2825" />
+        <entry key="..\:/Users/saarm/AndroidStudioProjects/FootsAppAndroid/app/src/main/res/font/foo_font.xml" value="0.31197916666666664" />
         <entry key="..\:/Users/saarm/AndroidStudioProjects/FootsAppAndroid/app/src/main/res/layout/activity_add_chat.xml" value="0.240625" />
         <entry key="..\:/Users/saarm/AndroidStudioProjects/FootsAppAndroid/app/src/main/res/layout/activity_chats.xml" value="0.240625" />
         <entry key="..\:/Users/saarm/AndroidStudioProjects/FootsAppAndroid/app/src/main/res/layout/activity_contacts.xml" value="0.2" />
         <entry key="..\:/Users/saarm/AndroidStudioProjects/FootsAppAndroid/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/saarm/AndroidStudioProjects/FootsAppAndroid/app/src/main/res/layout/activity_register.xml" value="0.1" />
+        <entry key="..\:/Users/saarm/AndroidStudioProjects/FootsAppAndroid/app/src/main/res/layout/contact_layout.xml" value="0.5" />
+        <entry key="..\:/Users/saarm/AndroidStudioProjects/FootsAppAndroid/app/src/main/res/layout/foo_text_view.xml" value="0.2545289855072464" />
         <entry key="..\:/Users/saarm/AppData/Local/Android/Sdk/platforms/android-32/data/res/layout/simple_list_item_1.xml" value="0.12228260869565218" />
       </map>
     </option>
