@@ -18,7 +18,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChatsActivity extends AppCompatActivity {
+public class ChatsActivity extends AppCompatActivity implements ContactsListAdapter.OnContactClickListener {
 
     private AppDB db;
     private ContactDao contactDao;
@@ -43,7 +43,7 @@ public class ChatsActivity extends AppCompatActivity {
         contacts = new ArrayList<>();
 
         RecyclerView lvContacts = findViewById(R.id.lvContacts);
-        adapter = new ContactsListAdapter(this);
+        adapter = new ContactsListAdapter(this, this);
         lvContacts.setAdapter(adapter);
         lvContacts.setLayoutManager(new LinearLayoutManager(this));
 
@@ -65,5 +65,12 @@ public class ChatsActivity extends AppCompatActivity {
         contacts.clear();
         contacts.addAll(contactDao.index());
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onContactClick(int position) {
+        Intent i = new Intent(this, ChatActivity.class);
+        i.putExtra("contact_nickname", contacts.get(position).getNickname());
+        startActivity(i);
     }
 }

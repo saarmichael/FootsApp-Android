@@ -15,34 +15,51 @@ import java.util.List;
 
 public class ContactsListAdapter extends RecyclerView.Adapter<ContactsListAdapter.ContactViewHolder> {
 
-    class ContactViewHolder extends RecyclerView.ViewHolder {
+    public interface OnContactClickListener {
+        void onContactClick(int position);
+    }
+
+    class ContactViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         //private final de.hdodenhof.circleimageview.CircleImageView profileImage;
         private final TextView contactName;
         private final TextView contactLastMsg;
         private final TextView contactLastSent;
+        private OnContactClickListener listener;
 
-        public ContactViewHolder(View itemView) {
+        public ContactViewHolder(View itemView, OnContactClickListener listener) {
             super(itemView);
             //profileImage = itemView.findViewById(R.id.profile_image);
             contactName = itemView.findViewById(R.id.contact_name);
             contactLastMsg = itemView.findViewById(R.id.contact_last_msg);
             contactLastSent = itemView.findViewById(R.id.contact_last_sent);
+            this.listener = listener;
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            listener.onContactClick(getAdapterPosition());
         }
     }
 
     private final LayoutInflater mInflater;
     private List<Contact> Contacts; // ContactsListAdapter needs to be updated
+    private OnContactClickListener listener;
+
+    // constructor
 
 
-    public ContactsListAdapter(Context context) {
+
+    public ContactsListAdapter(Context context, OnContactClickListener listener) {
         mInflater = LayoutInflater.from(context);
+        this.listener = listener;
     }
 
     @Override
     public ContactViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // TODO may not be contact_layout
         View itemView = mInflater.inflate(R.layout.contact_layout, parent, false);
-        return new ContactViewHolder(itemView);
+        return new ContactViewHolder(itemView, listener);
     }
 
     @Override
