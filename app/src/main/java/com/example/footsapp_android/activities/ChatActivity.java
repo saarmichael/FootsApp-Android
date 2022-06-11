@@ -20,5 +20,6 @@ public class ChatActivity extends AppCompatActivity {
         // change text of contact name
         TextView contactName = findViewById(R.id.contact_name);
         contactName.setText(nickname);
+        //
     }
 }
