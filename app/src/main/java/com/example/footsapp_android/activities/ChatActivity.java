@@ -15,11 +15,11 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
 
         // get the nickname from the intent extra "contact_nickname"
-        String nickname = getIntent().getStringExtra("contact_nickname");
+        Integer contactId = getIntent().getIntExtra("contact_id", -1);
 
         // change text of contact name
         TextView contactName = findViewById(R.id.contact_name);
-        contactName.setText(nickname);
+        contactName.setText(contactId.toString());
         //
     }
 }

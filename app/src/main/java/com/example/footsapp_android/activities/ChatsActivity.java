@@ -70,7 +70,7 @@ public class ChatsActivity extends AppCompatActivity implements ContactsListAdap
     @Override
     public void onContactClick(int position) {
         Intent i = new Intent(this, ChatActivity.class);
-        i.putExtra("contact_nickname", contacts.get(position).getNickname());
+        i.putExtra("contact_id", contacts.get(position).getId());
         startActivity(i);
     }
 }
