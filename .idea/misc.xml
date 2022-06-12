@@ -6,6 +6,8 @@
         <entry key="..\:/Users/saarm/AndroidStudioProjects/FootsAppAndroid/app/src/main/res/drawable-anydpi/footApp_logo.xml" value="0.2825" />
         <entry key="..\:/Users/saarm/AndroidStudioProjects/FootsAppAndroid/app/src/main/res/drawable/ic_baseline_nights_stay_24.xml" value="0.1975" />
         <entry key="..\:/Users/saarm/AndroidStudioProjects/FootsAppAndroid/app/src/main/res/drawable/ic_baseline_wb_sunny_24.xml" value="0.1975" />
+        <entry key="..\:/Users/saarm/AndroidStudioProjects/FootsAppAndroid/app/src/main/res/drawable/message_recieved_background.xml" value="0.252" />
+        <entry key="..\:/Users/saarm/AndroidStudioProjects/FootsAppAndroid/app/src/main/res/drawable/message_sent_background.xml" value="0.251" />
         <entry key="..\:/Users/saarm/AndroidStudioProjects/FootsAppAndroid/app/src/main/res/drawable/theme_gradient_background.xml" value="0.1965" />
         <entry key="..\:/Users/saarm/AndroidStudioProjects/FootsAppAndroid/app/src/main/res/font/foo_font.xml" value="0.31197916666666664" />
         <entry key="..\:/Users/saarm/AndroidStudioProjects/FootsAppAndroid/app/src/main/res/layout/activity_add_chat.xml" value="0.240625" />
@@ -18,6 +20,8 @@
         <entry key="..\:/Users/saarm/AndroidStudioProjects/FootsAppAndroid/app/src/main/res/layout/contact_item.xml" value="0.25" />
         <entry key="..\:/Users/saarm/AndroidStudioProjects/FootsAppAndroid/app/src/main/res/layout/contact_layout.xml" value="0.22" />
         <entry key="..\:/Users/saarm/AndroidStudioProjects/FootsAppAndroid/app/src/main/res/layout/foo_text_view.xml" value="0.2545289855072464" />
+        <entry key="..\:/Users/saarm/AndroidStudioProjects/FootsAppAndroid/app/src/main/res/layout/message_layout.xml" value="0.24635416666666668" />
+        <entry key="..\:/Users/saarm/AndroidStudioProjects/FootsAppAndroid/app/src/main/res/layout/message_recieved_layout.xml" value="0.265625" />
         <entry key="..\:/Users/saarm/AppData/Local/Android/Sdk/platforms/android-32/data/res/layout/simple_list_item_1.xml" value="0.12228260869565218" />
       </map>
     </option>

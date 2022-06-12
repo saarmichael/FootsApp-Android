@@ -14,6 +14,7 @@ public class Contact {
     private String lastMessage;
     private String time;
 
+
     public int getId() {
         return id;
     }
@@ -70,6 +71,7 @@ public class Contact {
     public void setTime(String time) {
         this.time = time;
     }
+
 
     @Override
     public String toString() {
