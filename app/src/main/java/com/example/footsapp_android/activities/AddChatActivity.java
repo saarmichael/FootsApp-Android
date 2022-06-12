@@ -5,7 +5,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
 
 import com.example.footsapp_android.AppDB;
 import com.example.footsapp_android.ContactDao;
@@ -22,8 +21,7 @@ public class AddChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_chat);
 
-        db = Room.databaseBuilder(getApplicationContext(), AppDB.class, "FooDB")
-                .allowMainThreadQueries().build();
+        db = AppDB.getDatabase(this);
         contactDao = db.contactDao();
 
         Button btnNewContact = findViewById(R.id.btnNewContact);
@@ -35,8 +33,8 @@ public class AddChatActivity extends AppCompatActivity {
 
             int size = contactDao.index().size() + 1;
             Contact contact = new Contact(size, etUser.getText().toString(),
-                                          etNickname.getText().toString(),
-                                          etServer.getText().toString()); // find a way to generate an id number from db
+                    etNickname.getText().toString(),
+                    etServer.getText().toString()); // find a way to generate an id number from db
             contactDao.insert(contact);
 
             finish();
