@@ -6,22 +6,26 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.footsapp_android.AppDB;
 import com.example.footsapp_android.ContactDao;
 import com.example.footsapp_android.MessageDao;
 import com.example.footsapp_android.R;
+import com.example.footsapp_android.adapters.MessageListAdapter;
 import com.example.footsapp_android.entities.Contact;
 import com.example.footsapp_android.entities.Message;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChatActivity extends AppCompatActivity {
+public class ChatActivity extends AppCompatActivity implements MessageListAdapter.OnMessageClickListener {
 
     private AppDB db;
     private Contact contact;
     private List<Message> messages = new ArrayList<>();
+    private MessageListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +43,12 @@ public class ChatActivity extends AppCompatActivity {
         this.messages = messageDao.index();
 
 
+        RecyclerView lvMessages = findViewById(R.id.lv_messages);
+        adapter = new MessageListAdapter(this, this);
+        lvMessages.setAdapter(adapter);
+        lvMessages.setLayoutManager(new LinearLayoutManager(this));
+        adapter.setMessages(messages);
+
         // change text of contact name
         TextView contactName = findViewById(R.id.contact_name);
         contactName.setText(this.contact.getNickname());
@@ -54,6 +64,12 @@ public class ChatActivity extends AppCompatActivity {
             messageDao.insert(message);
             messages.clear();
             messages.addAll(messageDao.index());
+            adapter.notifyDataSetChanged();
         });
+    }
+
+    @Override
+    public void onMessageClick(int position) {
+        return;
     }
 }

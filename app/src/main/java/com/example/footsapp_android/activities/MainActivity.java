@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     // private method for username and password validation
-    private boolean validateLogin(String username, String Password) {
+    private boolean validateLogin(String username, String password) {
         // check if username is empty
         boolean validInput = true;
         if (username.isEmpty()) {
@@ -23,15 +23,14 @@ public class MainActivity extends AppCompatActivity {
             validInput = false;
         }
         // check if password is empty
-        if (Password.isEmpty()) {
+        if (password.isEmpty()) {
             binding.etPassword.setError("Password is required");
             binding.etPassword.requestFocus();
             validInput = false;
         }
 
         // TODO implement username validation
-        LoginAPI loginAPI = new LoginAPI();
-        String token = loginAPI.post(username, Password);
+
         return validInput;
     }
 
@@ -56,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
             String username = binding.etUsername.getText().toString();
             String password = binding.etPassword.getText().toString();
             if (validateLogin(username, password)) {
+                LoginAPI loginAPI = new LoginAPI();
+                String token = loginAPI.post(username, password);
                 // move to contacts activity
                 Intent intent = new Intent(this, ChatsActivity.class);
                 startActivity(intent);

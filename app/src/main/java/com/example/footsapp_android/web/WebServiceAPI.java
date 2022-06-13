@@ -4,6 +4,7 @@ import com.example.footsapp_android.entities.Contact;
 
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -15,9 +16,9 @@ import retrofit2.http.Path;
 
 public interface WebServiceAPI {
 
-    @POST("/Login")
+    @POST("api/Login")
     @FormUrlEncoded
-    Call<String> login(
+    Call<ResponseBody> login(
             @Field("username") String username,
             @Field("password") String password);
 

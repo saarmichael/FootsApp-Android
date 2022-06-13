@@ -51,8 +51,16 @@
 
     </LinearLayout>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/lv_messages"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
+        tools:layout_editor_absoluteX="0dp" />
+
 
     <LinearLayout
+        android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -69,7 +77,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:elegantTextHeight="true"
-                android:hint="hint" />
+                android:hint="send a message" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
