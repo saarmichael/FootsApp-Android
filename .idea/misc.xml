@@ -13,6 +13,7 @@
         <entry key="..\:/Users/saarm/AndroidStudioProjects/FootsAppAndroid/app/src/main/res/layout/activity_add_chat.xml" value="0.240625" />
         <entry key="..\:/Users/saarm/AndroidStudioProjects/FootsAppAndroid/app/src/main/res/layout/activity_change_theme.xml" value="0.2" />
         <entry key="..\:/Users/saarm/AndroidStudioProjects/FootsAppAndroid/app/src/main/res/layout/activity_chat.xml" value="0.25" />
+        <entry key="..\:/Users/saarm/AndroidStudioProjects/FootsAppAndroid/app/src/main/res/layout/activity_chat_try.xml" value="0.13269927536231885" />
         <entry key="..\:/Users/saarm/AndroidStudioProjects/FootsAppAndroid/app/src/main/res/layout/activity_chats.xml" value="0.25" />
         <entry key="..\:/Users/saarm/AndroidStudioProjects/FootsAppAndroid/app/src/main/res/layout/activity_contacts.xml" value="0.2" />
         <entry key="..\:/Users/saarm/AndroidStudioProjects/FootsAppAndroid/app/src/main/res/layout/activity_main.xml" value="0.25" />
@@ -22,6 +23,7 @@
         <entry key="..\:/Users/saarm/AndroidStudioProjects/FootsAppAndroid/app/src/main/res/layout/foo_text_view.xml" value="0.2545289855072464" />
         <entry key="..\:/Users/saarm/AndroidStudioProjects/FootsAppAndroid/app/src/main/res/layout/message_layout.xml" value="0.24635416666666668" />
         <entry key="..\:/Users/saarm/AndroidStudioProjects/FootsAppAndroid/app/src/main/res/layout/message_recieved_layout.xml" value="0.265625" />
+        <entry key="..\:/Users/saarm/AndroidStudioProjects/FootsAppAndroid/app/src/main/res/layout/message_sent_layout.xml" value="0.15081521739130435" />
         <entry key="..\:/Users/saarm/AppData/Local/Android/Sdk/platforms/android-32/data/res/layout/simple_list_item_1.xml" value="0.12228260869565218" />
       </map>
     </option>

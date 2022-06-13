@@ -18,4 +18,5 @@
     <string name="friend_s_nickname">friend\'s nickname</string>
     <string name="friend_s_server">friend\'s server</string>
     <string name="back_to_chats">go back to chats</string>
+    <string name="BaseUrl">https://10.0.2.2:44396/api/</string>
 </resources>

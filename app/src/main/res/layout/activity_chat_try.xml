@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/profile_image"
+            android:id="@+id/profile_image_try"
             android:layout_width="67dp"
             android:layout_height="74dp"
             android:src="@drawable/footsapp_home_logo"
@@ -28,7 +28,7 @@
 
 
         <TextView
-            android:id="@+id/contact_name"
+            android:id="@+id/contact_name_try"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:elegantTextHeight="true"
@@ -64,7 +64,7 @@
             android:layout_weight="1">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/input_msg"
+                android:id="@+id/input_msg_try"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
@@ -73,7 +73,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/button_send"
+            android:id="@+id/button_send_try"
             style="@style/Widget.AppCompat.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

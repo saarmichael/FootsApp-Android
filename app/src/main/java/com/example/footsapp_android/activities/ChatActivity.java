@@ -1,6 +1,8 @@
 package com.example.footsapp_android.activities;
 
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -42,5 +44,16 @@ public class ChatActivity extends AppCompatActivity {
         contactName.setText(this.contact.getNickname());
         //
 
+        Button buttonSend = findViewById(R.id.button_send);
+        buttonSend.setOnClickListener(view -> {
+            EditText inputMsg = findViewById(R.id.input_msg);
+
+
+            int size = messageDao.index().size() + 1;
+            Message message = new Message(size, inputMsg.getText().toString(), true); // find a way to generate an id number from db
+            messageDao.insert(message);
+            messages.clear();
+            messages.addAll(messageDao.index());
+        });
     }
 }

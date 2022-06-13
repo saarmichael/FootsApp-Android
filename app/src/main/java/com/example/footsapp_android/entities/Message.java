@@ -14,10 +14,11 @@ public class Message {
     private String time;
     private boolean sender;
 
-    public Message(int id, String content, String time, boolean sender) {
+    public Message(int id, String content, boolean sender) {
         this.id = id;
         this.content = content;
-        this.time = time;
+        //TODO this.time = time;
+        time = "12:00";
         this.sender = sender;
     }
 

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.footsapp_android.databinding.ActivityMainBinding;
+import com.example.footsapp_android.web.LoginAPI;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // TODO implement username validation
+        LoginAPI loginAPI = new LoginAPI();
+        String token = loginAPI.post(username, Password);
         return validInput;
     }
 
