@@ -48,4 +48,23 @@ public class LoginAPI {
         return token;
     }
 
+    public String getFooFromAPI(){
+        Call<ResponseBody> call = webServiceAPI.getFoo();
+        final String[] result = {"bla"};
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                result[0] = response.body().toString();
+                Log.d("LoginAPI", "onResponse: " + response.body());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                result[0] = "bla";
+                Log.d("LoginAPI", "onFailure: " + t.getMessage());
+            }
+        });
+        return result[0];
+    }
+
 }

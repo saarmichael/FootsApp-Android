@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
             String password = binding.etPassword.getText().toString();
             if (validateLogin(username, password)) {
                 LoginAPI loginAPI = new LoginAPI();
+                String foo = loginAPI.getFooFromAPI();
                 String token = loginAPI.post(username, password);
                 // move to contacts activity
                 Intent intent = new Intent(this, ChatsActivity.class);
