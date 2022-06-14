@@ -5,14 +5,12 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.footsapp_android.AppDB;
 import com.example.footsapp_android.ContactDao;
-import com.example.footsapp_android.R;
 import com.example.footsapp_android.adapters.ContactsListAdapter;
+import com.example.footsapp_android.databinding.ActivityChatsBinding;
 import com.example.footsapp_android.entities.Contact;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,27 +21,31 @@ public class ChatsActivity extends AppCompatActivity implements ContactsListAdap
     private ContactDao contactDao;
     private List<Contact> contacts;
     private ContactsListAdapter adapter;
+    // binding
+    private ActivityChatsBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chats);
+        binding = ActivityChatsBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         db = AppDB.getDatabase(this);
         contactDao = db.contactDao();
 
-        FloatingActionButton btnNew = findViewById(R.id.btnNew);
-        btnNew.setOnClickListener(view -> {
+
+        binding.btnNew.setOnClickListener(view -> {
             Intent i = new Intent(this, AddChatActivity.class);
             startActivity(i);
         });
 
         contacts = new ArrayList<>();
 
-        RecyclerView lvContacts = findViewById(R.id.lvContacts);
+
         adapter = new ContactsListAdapter(this, this);
-        lvContacts.setAdapter(adapter);
-        lvContacts.setLayoutManager(new LinearLayoutManager(this));
+        binding.lvContacts.setAdapter(adapter);
+        binding.lvContacts.setLayoutManager(new LinearLayoutManager(this));
+        //binding.lvContacts.setVisibility(View.VISIBLE);
 
         contacts = contactDao.index();
         adapter.setContacts(contacts);
@@ -60,9 +62,11 @@ public class ChatsActivity extends AppCompatActivity implements ContactsListAdap
     @Override
     protected void onResume() {
         super.onResume();
+        //loading(true);
         contacts.clear();
         contacts.addAll(contactDao.index());
         adapter.notifyDataSetChanged();
+        //loading(false);
     }
 
     @Override
@@ -71,4 +75,8 @@ public class ChatsActivity extends AppCompatActivity implements ContactsListAdap
         i.putExtra("contact_id", contacts.get(position).getId());
         startActivity(i);
     }
+
+    /*private void loading(Boolean isLoading){
+        binding.progressBar.setVisibility(isLoading ? View.VISIBLE : View.INVISIBLE);
+    }*/
 }

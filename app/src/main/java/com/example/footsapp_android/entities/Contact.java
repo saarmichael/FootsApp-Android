@@ -3,8 +3,10 @@ package com.example.footsapp_android.entities;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity
-public class Contact {
+public class Contact implements Serializable {
 
     @PrimaryKey(autoGenerate=true)
     private int id;

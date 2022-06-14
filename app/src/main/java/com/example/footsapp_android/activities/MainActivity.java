@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                 LoginAPI loginAPI = new LoginAPI();
                 String foo = loginAPI.getFooFromAPI();
                 String token = loginAPI.post(username, password);
-                if (token != null) {
+                /*if (token != null) {
                     // move the error message from etPassword
                     binding.etPassword.setError(null);
                     // move to contacts activity
@@ -77,7 +77,9 @@ public class MainActivity extends AppCompatActivity {
                         binding.etPassword.setError("Invalid username or password");
                     }
 
-                }
+                }*/
+                Intent intent = new Intent(this, ChatsActivity.class);
+                startActivity(intent);
             }
 
             /*if (binding.etUsername.getText().toString().equals("admin") && binding.etPassword.getText().toString().equals("admin")) {
