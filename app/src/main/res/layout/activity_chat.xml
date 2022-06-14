@@ -7,6 +7,7 @@
     tools:context=".activities.ChatActivity">
 
     <LinearLayout
+        android:id="@+id/contact_info"
         android:layout_width="match_parent"
         android:layout_height="85dp"
         android:orientation="horizontal"
@@ -51,11 +52,21 @@
 
     </LinearLayout>
 
+    <View
+        android:id="@+id/viewSupporter"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="12dp"
+        android:background="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/contact_info"
+            />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/lv_messages"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/viewSupporter"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
+        app:stackFromEnd="true"
         tools:layout_editor_absoluteX="0dp" />
 
 
