@@ -5,6 +5,8 @@ import android.util.Log;
 import com.example.footsapp_android.MyApplication;
 import com.example.footsapp_android.R;
 
+import java.io.IOException;
+
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,8 +33,18 @@ public class LoginAPI {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        token = response.body().string();
+                    } else {
+                        Log.e("LoginAPI", "onResponse: " + response.errorBody().string());
+                        token = null;
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 Log.d("LoginAPI", "onResponse: " + response.body());
-                 token = response.body().toString();
+
                 /*new Thread(() -> {
                     dao.clear();
                     dao.insertList(response.body());
@@ -50,11 +62,11 @@ public class LoginAPI {
 
     public String getFooFromAPI(){
         Call<ResponseBody> call = webServiceAPI.getFoo();
-        final String[] result = {"bla"};
+        final String[] result = {"blar"};
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                result[0] = response.body().toString();
+                //result[0] = response.body();
                 Log.d("LoginAPI", "onResponse: " + response.body());
             }
 

@@ -38,6 +38,7 @@ public class ChatActivity extends AppCompatActivity implements MessageListAdapte
         binding = ActivityChatBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         init();
+        setListeners();
 
         Button buttonSend = findViewById(R.id.button_send);
 
@@ -63,19 +64,24 @@ public class ChatActivity extends AppCompatActivity implements MessageListAdapte
 
     private void sendMessage() {
         // TODO send message to the server
-        binding.inputMsg.setText(null);
+
         int size = messageDao.index().size() + 1;
-        Message message = new Message(size, binding.inputMsg.getText().toString(), true); // find a way to generate an id number from db
+        // generate random sender or not sender
+        boolean sender = (int) (Math.random() * 2) > 1;
+
+        Message message = new Message(size, binding.inputMsg.getText().toString(), sender); // find a way to generate an id number from db
         messageDao.insert(message);
         messages.clear();
         messages.addAll(messageDao.index());
         adapter.notifyItemRangeInserted(messages.size(), messages.size());
         binding.lvMessages.smoothScrollToPosition(messages.size() - 1);
         binding.lvMessages.setVisibility(View.VISIBLE);
+        binding.inputMsg.setText(null);
     }
 
     private void setListeners() {
         binding.buttonSend.setOnClickListener(view -> sendMessage());
+
 
 
     }

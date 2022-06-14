@@ -8,18 +8,17 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface WebServiceAPI {
 
-    @POST("/Login")
-    @FormUrlEncoded
-    Call<ResponseBody> login(String username, String password);
+    @POST("Login")
+    Call<ResponseBody> login(@Query("username") String username, @Query("password") String password);
 
-    @GET("Login/getFoo")
+    @GET("Login")
     Call<ResponseBody> getFoo();
 
     @GET("Contacts")
