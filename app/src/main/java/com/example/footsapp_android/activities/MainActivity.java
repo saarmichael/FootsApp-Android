@@ -6,7 +6,6 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.footsapp_android.databinding.ActivityMainBinding;
-import com.example.footsapp_android.web.LoginAPI;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -52,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         // set listener for Login_btn that checks if the username and password are correct
         binding.btnLogin.setOnClickListener(v -> {
             // check if username and password are correct
-            String username = binding.etUsername.getText().toString();
+            /*String username = binding.etUsername.getText().toString();
             String password = binding.etPassword.getText().toString();
             if (validateLogin(username, password)) {
                 LoginAPI loginAPI = new LoginAPI(username, password);
@@ -74,7 +73,9 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     binding.etPassword.setError("Invalid username or password");
                 }
-            }
+            }*/
+            Intent intent = new Intent(this, ChatsActivity.class);
+            startActivity(intent);
         });
 
         binding.buttonSettings.setOnClickListener(v -> {

@@ -3,7 +3,6 @@ package com.example.footsapp_android.activities;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
-import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.footsapp_android.AppDB;
 import com.example.footsapp_android.ContactDao;
 import com.example.footsapp_android.MessageDao;
-import com.example.footsapp_android.R;
 import com.example.footsapp_android.adapters.MessageListAdapter;
 import com.example.footsapp_android.databinding.ActivityChatBinding;
 import com.example.footsapp_android.entities.Contact;
@@ -40,7 +38,7 @@ public class ChatActivity extends AppCompatActivity implements MessageListAdapte
         init();
         setListeners();
 
-        Button buttonSend = findViewById(R.id.button_send);
+        //Button buttonSend = findViewById(R.id.button_send);
 
     }
 
@@ -67,7 +65,7 @@ public class ChatActivity extends AppCompatActivity implements MessageListAdapte
 
         int size = messageDao.index().size() + 1;
         // generate random sender or not sender
-        boolean sender = (int) (Math.random() * 2) > 1;
+        boolean sender = (Math.random() * 2) > 1;
 
         Message message = new Message(size, binding.inputMsg.getText().toString(), sender); // find a way to generate an id number from db
         messageDao.insert(message);

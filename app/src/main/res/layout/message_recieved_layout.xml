@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_marginTop="8dp"
     android:padding="4dp">
 
@@ -17,7 +17,6 @@
         android:paddingEnd="12dp"
         android:paddingBottom="8dp"
         app:layout_constraintWidth_max="wrap"
-        android:padding="12dp"
         android:textColor="@color/white"
         android:textSize="13sp"
 
