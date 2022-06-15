@@ -12,6 +12,8 @@ import com.example.footsapp_android.ContactDao;
 import com.example.footsapp_android.R;
 import com.example.footsapp_android.adapters.ContactsListAdapter;
 import com.example.footsapp_android.entities.Contact;
+import com.example.footsapp_android.web.ContactAPI;
+import com.example.footsapp_android.web.LoginAPI;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -31,6 +33,7 @@ public class ChatsActivity extends AppCompatActivity implements ContactsListAdap
 
         db = AppDB.getDatabase(this);
         contactDao = db.contactDao();
+        ContactAPI contactAPI = new ContactAPI(contactDao, LoginAPI.getToken());
 
         FloatingActionButton btnNew = findViewById(R.id.btnNew);
         btnNew.setOnClickListener(view -> {
@@ -48,13 +51,18 @@ public class ChatsActivity extends AppCompatActivity implements ContactsListAdap
         contacts = contactDao.index();
         adapter.setContacts(contacts);
 
-        // probably doesn't work with the new adapter
-        /*lvContacts.setOnItemLongClickListener((adapterView, view, i, l) -> {
-            Contact contact = contacts.remove(i);
-            contactDao.delete(contact);
+        Thread thread = new Thread(contactAPI);
+        thread.start();
+        try {
+            thread.join();
+            contacts.clear();
+            contacts.addAll(contactDao.index());
             adapter.notifyDataSetChanged();
-            return true;
-        });*/
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     @Override

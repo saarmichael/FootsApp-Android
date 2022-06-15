@@ -88,7 +88,7 @@ public class LoginAPI implements Runnable{
         post(this.username, this.password);
     }
 
-    public String getToken() {
+    public static String getToken() {
         return token;
     }
 }

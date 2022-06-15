@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                String token = loginAPI.getToken();
+                String token = LoginAPI.getToken();
                 if (token != null) {
                     // move the error message from etPassword
                     binding.etPassword.setError(null);
@@ -75,12 +75,6 @@ public class MainActivity extends AppCompatActivity {
                     binding.etPassword.setError("Invalid username or password");
                 }
             }
-
-            /*if (binding.etUsername.getText().toString().equals("admin") && binding.etPassword.getText().toString().equals("admin")) {
-                // start HomeActivity
-                Intent intent = new Intent(this, HomeActivity.class);
-                startActivity(intent);
-            }*/
         });
 
         binding.buttonSettings.setOnClickListener(v -> {

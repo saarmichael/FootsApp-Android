@@ -36,7 +36,6 @@ public class AddChatActivity extends AppCompatActivity {
                     etNickname.getText().toString(),
                     etServer.getText().toString()); // find a way to generate an id number from db
             contactDao.insert(contact);
-
             finish();
         });
     }

@@ -3,15 +3,22 @@ package com.example.footsapp_android.entities;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.google.gson.annotations.SerializedName;
+
 @Entity
 public class Contact {
 
     @PrimaryKey(autoGenerate=true)
+    @SerializedName("UserID")
     private int id;
+    @SerializedName("id")
     private String username;
+    @SerializedName("name")
     private String nickname;
     private String server;
+    @SerializedName("last")
     private String lastMessage;
+    @SerializedName("lastdate")
     private String time;
 
 
