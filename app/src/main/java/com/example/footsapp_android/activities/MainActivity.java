@@ -55,9 +55,16 @@ public class MainActivity extends AppCompatActivity {
             String username = binding.etUsername.getText().toString();
             String password = binding.etPassword.getText().toString();
             if (validateLogin(username, password)) {
-                LoginAPI loginAPI = new LoginAPI();
-                String foo = loginAPI.getFooFromAPI();
-                String token = loginAPI.post(username, password);
+                LoginAPI loginAPI = new LoginAPI(username, password);
+                Thread thread = new Thread(loginAPI);
+                thread.start();
+                try {
+                    thread.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                String token = loginAPI.getToken();
                 if (token != null) {
                     // move the error message from etPassword
                     binding.etPassword.setError(null);
@@ -65,18 +72,7 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(this, ChatsActivity.class);
                     startActivity(intent);
                 } else {
-                    // show error message
-                    token = loginAPI.post(username, password);
-                    if(token != null){
-                        // move the error message from etPassword
-                        binding.etPassword.setError(null);
-                        // move to contacts activity
-                        Intent intent = new Intent(this, ChatsActivity.class);
-                        startActivity(intent);
-                    } else {
-                        binding.etPassword.setError("Invalid username or password");
-                    }
-
+                    binding.etPassword.setError("Invalid username or password");
                 }
             }
 
