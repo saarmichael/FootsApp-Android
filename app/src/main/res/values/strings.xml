@@ -21,4 +21,10 @@
     <string name="BaseUrl">http://10.0.2.2:7291/api/</string>
     <string name="chats_headline">Chats</string>
     <string name="send_a_message">send a message</string>
+    <string name="welcome_to_footsapp">Welcome to FootsApp!</string>
+    <string name="add_image">select your profile picture</string>
+    <string name="name">Username</string>
+    <string name="nickname">Nickname</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm password</string>
 </resources>
