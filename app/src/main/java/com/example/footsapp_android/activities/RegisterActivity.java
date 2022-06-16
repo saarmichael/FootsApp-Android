@@ -14,7 +14,6 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.footsapp_android.afterLogin.ContactsActivity;
 import com.example.footsapp_android.databinding.ActivityRegisterBinding;
 
 import java.io.ByteArrayOutputStream;
@@ -49,7 +48,7 @@ public class RegisterActivity extends AppCompatActivity {
                         edit().
                         putString("image", this.encodedImage).
                         apply();
-                Intent intent = new Intent(this, ContactsActivity.class);
+                Intent intent = new Intent(this, ChatsActivity.class);
                 startActivity(intent);
             }
         });
@@ -114,11 +113,11 @@ public class RegisterActivity extends AppCompatActivity {
             return false;
         }
         // check that password is at least 8 characters long and contains at least one number, capital letter and special character
-        if (!password.matches("(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*])(?=\\S+$).{8,}")) {
+        /*if (!password.matches("(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*])(?=\\S+$).{8,}")) {
             showToast("Password must be at least 8 characters long and contain at least one number, capital letter and special character");
             binding.etPassword.requestFocus();
             return false;
-        }
+        }*/
         if (encodedImage == null) {
             showToast("Please upload a profile picture");
             //binding.ivProfilePicture.requestFocus();
