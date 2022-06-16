@@ -1,22 +1,98 @@
 package com.example.footsapp_android.activities;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Base64;
+import android.view.View;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.footsapp_android.afterLogin.ContactsActivity;
 import com.example.footsapp_android.databinding.ActivityRegisterBinding;
+
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 public class RegisterActivity extends AppCompatActivity {
 
     private ActivityRegisterBinding binding;
     private String encodedImage;
 
+    // set Listeners
+    private void setListeners() {
+        binding.tvLoginActivity.setOnClickListener(v -> {
+            // start LoginActivity (Main)
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        });
+
+        binding.btnRegister.setOnClickListener(v -> {
+            // check if username and password are correct
+            String username = binding.etUsername.getText().toString();
+            String nickname = binding.etNickname.getText().toString();
+            String password = binding.etPassword.getText().toString();
+            String confirmPassword = binding.etConfirmPassword.getText().toString();
+            if (validateRegister(username, nickname, password, confirmPassword)) {
+                // TODO register the user
+                // move to contacts activity
+                // add to shared preferences the user's encodedImage
+                getApplicationContext().
+                        getSharedPreferences("user", MODE_PRIVATE).
+                        edit().
+                        putString("image", this.encodedImage).
+                        apply();
+                Intent intent = new Intent(this, ContactsActivity.class);
+                startActivity(intent);
+            }
+        });
+        // get the image from devices gallery
+        binding.layoutImage.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            pickImage.launch(intent);
+        });
+    }
+
     private void showToast(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
+
+    private String encodeImage(Bitmap bitmap) {
+        int previewWidth = 150;
+        int previewHeight = bitmap.getHeight() * previewWidth / bitmap.getWidth();
+        Bitmap previewBitmap = Bitmap.createScaledBitmap(bitmap, previewWidth, previewHeight, false);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        previewBitmap.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream);
+        byte[] bytes = byteArrayOutputStream.toByteArray();
+        return Base64.encodeToString(bytes, Base64.DEFAULT);
+    }
+
+    private final ActivityResultLauncher<Intent> pickImage = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == RESULT_OK) {
+                    if (result.getData() != null) {
+                        Uri imageUri = result.getData().getData();
+                        try {
+                            InputStream inputStream = getContentResolver().openInputStream(imageUri);
+                            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                            binding.imageProfile.setImageBitmap(bitmap);
+                            binding.textImage.setVisibility(View.GONE);
+                            this.encodedImage = encodeImage(bitmap);
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            });
 
     // private method for register validation
     private boolean validateRegister(String username, String nickname, String password, String confirmPassword) {
@@ -25,6 +101,10 @@ public class RegisterActivity extends AppCompatActivity {
         if (username.isEmpty() || nickname.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
             showToast("Please fill all the fields");
             binding.etUsername.requestFocus();
+            return false;
+        }
+        if (this.encodedImage == null) {
+            showToast("Please upload a profile picture");
             return false;
         }
         // check if password and confirm password are the same
@@ -53,29 +133,14 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityRegisterBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        setListeners();
         //setContentView(R.layout.activity_register);
         //TextView tvRegisterActivity = findViewById(R.id.tvLoginActivity);
         // on click, go to LoginActivity
-        binding.tvLoginActivity.setOnClickListener(v -> {
-            // start LoginActivity (Main)
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-        });
+
 
         // set listener for Register_btn that checks if the username and password are correct
-        binding.btnRegister.setOnClickListener(v -> {
-            // check if username and password are correct
-            String username = binding.etUsername.getText().toString();
-            String nickname = binding.etNickname.getText().toString();
-            String password = binding.etPassword.getText().toString();
-            String confirmPassword = binding.etConfirmPassword.getText().toString();
-            if (validateRegister(username, nickname, password, confirmPassword)) {
-                // TODO register the user
-                // move to contacts activity
-                Intent intent = new Intent(this, ContactsActivity.class);
-                startActivity(intent);
-            }
-        });
+
 
     }
 }

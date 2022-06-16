@@ -9,111 +9,182 @@
     android:layout_height="match_parent"
     android:clipToPadding="false"
     android:overScrollMode="never"
+    android:background="@color/prime"
     android:padding="24dp"
     android:scrollbars="none"
     tools:context=".activities.RegisterActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginTop="20dp"
+            android:fontFamily="@font/righteous"
             android:text="@string/welcome_to_footsapp"
             android:textColor="@color/text"
-            android:textSize="18sp"
+            android:textSize="32sp"
             android:textStyle="bold" />
 
-        <FrameLayout
-            android:layout_width="wrap_content"
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
+            android:orientation="vertical"
+            android:layout_marginTop="50dp"
+        >
 
-
-
-            <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/imageProfile"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:background="@drawable/register_background_image"
-                android:scaleType="centerCrop"
-                app:riv_oval="true" />
-
-            <TextView
+            <FrameLayout
+                android:id="@+id/layout_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/add_image"
+                android:layout_marginTop="20dp">
+
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/imageProfile"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:background="@drawable/register_background_image"
+                    android:scaleType="centerCrop"
+                    app:riv_oval="true" />
+
+                <TextView
+                    android:id="@+id/text_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/righteous"
+                    android:text="@string/add_image"
+                    android:textColor="@color/text"
+                    android:textSize="10sp" />
+
+            </FrameLayout>
+
+            <EditText
+                android:id="@+id/etUsername"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/background_input"
+                android:fontFamily="@font/righteous"
+                android:hint="@string/name"
+                android:imeOptions="actionNext"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
                 android:textColor="@color/text"
-                android:textSize="10sp" />
+                android:textSize="13sp" />
 
-        </FrameLayout>
+            <EditText
+                android:id="@+id/etNickname"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="16dp"
 
-        <EditText
-            android:id="@+id/etUsername"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
+                android:background="@drawable/background_input"
+                android:fontFamily="@font/righteous"
+                android:hint="@string/nickname"
+                android:imeOptions="actionNext"
+                android:importantForAutofill="no"
+                android:inputType="textEmailAddress"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textColor="@color/text"
+                android:textSize="13sp" />
+
+            <EditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/background_input"
+                android:fontFamily="@font/righteous"
+                android:hint="@string/password"
+                android:imeOptions="actionNext"
+                android:importantForAutofill="no"
+                android:inputType="textPassword"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textColor="@color/text"
+                android:textSize="13sp" />
+
+            <EditText
+                android:id="@+id/etConfirmPassword"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/background_input"
+                android:fontFamily="@font/righteous"
+                android:hint="@string/confirm_password"
+                android:imeOptions="actionDone"
+                android:importantForAutofill="no"
+                android:inputType="textPassword"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textColor="@color/text"
+                android:textSize="13sp" />
+
+        </LinearLayout>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:background="@drawable/background_input"
-            android:hint="@string/name"
-            android:imeOptions="actionNext"
-            android:importantForAutofill="no"
-            android:inputType="text"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
             android:textColor="@color/text"
-            android:textSize="13sp" />
+            app:backgroundTint="@color/buttons"
+            android:fontFamily="@font/righteous"
+            android:text="@string/register_btn_register" />
 
-        <EditText
-            android:id="@+id/etNickname"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginTop="16dp"
-            android:layout_with="match_parent"
-            android:background="@drawable/background_input"
-            android:hint="@string/nickname"
-            android:imeOptions="actionNext"
-            android:importantForAutofill="no"
-            android:inputType="textEmailAddress"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:textColor="@color/text"
-            android:textSize="13sp" />
+        <LinearLayout
+            android:id="@+id/LoginRedirectLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnRegister"
+            app:layout_constraintVertical_bias="0.43">
 
-        <EditText
-            android:id="@+id/etPassword"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/background_input"
-            android:hint="@string/password"
-            android:imeOptions="actionNext"
-            android:importantForAutofill="no"
-            android:inputType="textPassword"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:textColor="@color/text"
-            android:textSize="13sp" />
+            <TextView
+                android:id="@+id/tvLoginText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/righteous"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="5dp"
+                android:text="@string/register_tv_account_msg"
+                android:textAlignment="center"
+                android:textColor="@color/text" />
 
-        <EditText
-        android:id="@+id/etConfirmPassword"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/background_input"
-        android:hint="@string/confirm_password"
-        android:imeOptions="actionDone"
-        android:importantForAutofill="no"
-        android:inputType="textPassword"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:textColor="@color/text"
-        android:textSize="13sp"
-        />
+            <TextView
+                android:id="@+id/tvLoginActivity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/righteous"
+                android:paddingLeft="20dp"
+                android:paddingTop="5dp"
+                android:paddingRight="20dp"
+                android:text="@string/register_tv_login"
+                android:textAlignment="center"
+                android:textColor="@color/text" />
+
+        </LinearLayout>
+
 
 
 
@@ -121,93 +192,7 @@
 </ScrollView>
 
 
-    <LinearLayout
-        android:id="@+id/LoginRedirectLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.43">
-
-        <TextView
-            android:id="@+id/tvLoginText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:paddingBottom="5dp"
-            android:text="@string/register_tv_account_msg"
-            android:textAlignment="center" />
-
-        <TextView
-            android:id="@+id/tvLoginActivity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="20dp"
-            android:paddingTop="5dp"
-            android:paddingRight="20dp"
-            android:text="@string/register_tv_login"
-            android:textAlignment="center" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="1dp">
 
 
-
-        <Button
-            android:id="@+id/btnRegister"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:text="@string/register_btn_register" />
-
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:orientation="horizontal"
-            android:padding="20dp">
-
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:srcCompat="@drawable/footapp_logo" />
-
-            <TextView
-                android:id="@+id/logo_txt"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="FootsApp!"
-                android:textSize="24sp" />
-        </LinearLayout>
-    </LinearLayout>
 
 
