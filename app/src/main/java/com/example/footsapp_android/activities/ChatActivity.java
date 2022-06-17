@@ -1,10 +1,12 @@
 package com.example.footsapp_android.activities;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -16,7 +18,11 @@ import com.example.footsapp_android.adapters.MessageListAdapter;
 import com.example.footsapp_android.databinding.ActivityChatBinding;
 import com.example.footsapp_android.entities.Contact;
 import com.example.footsapp_android.entities.Message;
+import com.example.footsapp_android.web.LoginAPI;
+import com.example.footsapp_android.web.MessageAPI;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +38,7 @@ public class ChatActivity extends AppCompatActivity implements MessageListAdapte
     MessageDao messageDao;
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +46,18 @@ public class ChatActivity extends AppCompatActivity implements MessageListAdapte
         setContentView(binding.getRoot());
         init();
         setListeners();
+
+        MessageAPI messageAPI = new MessageAPI(messageDao, contactDao, LoginAPI.getToken());
+        Thread thread = new Thread(messageAPI);
+        thread.start();
+        try {
+            thread.join();
+            messages.clear();
+            messages.addAll(messageDao.index());
+            adapter.notifyDataSetChanged();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         Button buttonSend = findViewById(R.id.button_send);
 
@@ -53,6 +72,7 @@ public class ChatActivity extends AppCompatActivity implements MessageListAdapte
         // get the nickname from the intent extra "contact_nickname"
         Integer contactId = getIntent().getIntExtra("contact_id", -1);
         // get the contact from the db
+        List<Contact> c = contactDao.index();
         this.contact = contactDao.get(contactId);
         this.messages = messageDao.index();
         adapter = new MessageListAdapter(this, this);
@@ -62,14 +82,17 @@ public class ChatActivity extends AppCompatActivity implements MessageListAdapte
         binding.contactName.setText(this.contact.getNickname());
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void sendMessage() {
         // TODO send message to the server
 
         int size = messageDao.index().size() + 1;
         // generate random sender or not sender
         boolean sender = (int) (Math.random() * 2) > 1;
-
-        Message message = new Message(size, binding.inputMsg.getText().toString(), sender); // find a way to generate an id number from db
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu/MM/ddTHH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        String contactUsername = getIntent().getStringExtra("contact_username");
+        Message message = new Message(size, binding.inputMsg.getText().toString(), dtf.format(now), sender, contactUsername); // find a way to generate an id number from db
         messageDao.insert(message);
         messages.clear();
         messages.addAll(messageDao.index());
@@ -79,6 +102,7 @@ public class ChatActivity extends AppCompatActivity implements MessageListAdapte
         binding.inputMsg.setText(null);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void setListeners() {
         binding.buttonSend.setOnClickListener(view -> sendMessage());
 

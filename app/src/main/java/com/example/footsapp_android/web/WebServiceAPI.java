@@ -1,6 +1,7 @@
 package com.example.footsapp_android.web;
 
 import com.example.footsapp_android.entities.Contact;
+import com.example.footsapp_android.entities.Message;
 
 import java.util.List;
 
@@ -30,4 +31,9 @@ public interface WebServiceAPI {
     @DELETE("Contacts/{id}")
     Call<Void> deleteContact(@Path("id") String id);
 
+    @GET("Contacts/{id}/messages")
+    Call<List<Message>> getMessages(@Path("id") String id);
+
+    @POST("Contacts/{id}/messages")
+    Call<Void> createMessage(@Path("id") String id, @Body String content);
 }

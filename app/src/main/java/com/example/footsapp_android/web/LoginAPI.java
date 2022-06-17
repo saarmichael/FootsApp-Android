@@ -56,7 +56,6 @@ public class LoginAPI implements Runnable{
             if (response.isSuccessful()) {
                 token = response.body().string();
             } else { // catching wrong login
-                Log.e("LoginAPI", "onResponse: " + response.errorBody().string());
                 token = null;
             }
         } catch (IOException e) { // catching request error

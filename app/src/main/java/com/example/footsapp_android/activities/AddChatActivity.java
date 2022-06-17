@@ -10,6 +10,8 @@ import com.example.footsapp_android.AppDB;
 import com.example.footsapp_android.ContactDao;
 import com.example.footsapp_android.R;
 import com.example.footsapp_android.entities.Contact;
+import com.example.footsapp_android.web.ContactAPI;
+import com.example.footsapp_android.web.LoginAPI;
 
 public class AddChatActivity extends AppCompatActivity {
 
@@ -36,6 +38,9 @@ public class AddChatActivity extends AppCompatActivity {
                     etNickname.getText().toString(),
                     etServer.getText().toString()); // find a way to generate an id number from db
             contactDao.insert(contact);
+
+            ContactAPI contactAPI = new ContactAPI(contactDao, LoginAPI.getToken());
+            contactAPI.post(contact);
             finish();
         });
     }

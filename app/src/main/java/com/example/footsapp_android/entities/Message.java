@@ -4,6 +4,8 @@ package com.example.footsapp_android.entities;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.google.gson.annotations.SerializedName;
+
 @Entity
 public class Message {
 
@@ -11,15 +13,18 @@ public class Message {
     @PrimaryKey(autoGenerate=true)
     private int id;
     private String content;
+    @SerializedName("created")
     private String time;
+    @SerializedName("sent")
     private boolean sender;
+    private String sentFrom;
 
-    public Message(int id, String content, boolean sender) {
+    public Message(int id, String content, String time, boolean sender, String sentFrom) {
         this.id = id;
         this.content = content;
-        //TODO this.time = time;
-        time = "12:00";
+        this.time = time;
         this.sender = sender;
+        this.sentFrom = sentFrom;
     }
 
     public int getId() {
@@ -53,6 +58,15 @@ public class Message {
     public void setSender(boolean sender) {
         this.sender = sender;
     }
+
+    public String getSentFrom() {
+        return sentFrom;
+    }
+
+    public void setSentFrom(String sentFrom) {
+        this.sentFrom = sentFrom;
+    }
+
 
     @Override
     public String toString() {

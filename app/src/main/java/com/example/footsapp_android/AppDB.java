@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase;
 import com.example.footsapp_android.entities.Contact;
 import com.example.footsapp_android.entities.Message;
 
-@Database(entities = {Contact.class, Message.class}, version = 2)
+@Database(entities = {Contact.class, Message.class}, version = 3)
 public abstract class AppDB extends RoomDatabase {
 
     private static volatile AppDB INSTANCE;
