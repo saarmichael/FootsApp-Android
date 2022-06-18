@@ -4,7 +4,6 @@ import com.example.footsapp_android.ContactDao;
 import com.example.footsapp_android.MessageDao;
 import com.example.footsapp_android.MyApplication;
 import com.example.footsapp_android.R;
-import com.example.footsapp_android.entities.Contact;
 import com.example.footsapp_android.entities.Message;
 
 import java.io.IOException;
@@ -24,11 +23,12 @@ public class MessageAPI implements Runnable {
     private MessageDao messageDao;
     Retrofit retrofit;
     WebServiceAPI webServiceAPI;
+    private String contactName;
 
-    public MessageAPI(MessageDao messageDao, ContactDao contactDao, String token) {
+    public MessageAPI(MessageDao messageDao, ContactDao contactDao, String token, String contactName) {
         this.contactDao = contactDao;
         this.messageDao = messageDao;
-
+        this.contactName = contactName;
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(new Interceptor() {
             @Override
             public okhttp3.Response intercept(Chain chain) throws IOException {
@@ -69,8 +69,8 @@ public class MessageAPI implements Runnable {
         });
     }
 
-    public void post(String id, String content) {
-        Call<Void> call = webServiceAPI.createMessage(id, content);
+    public void post(String content) {
+        Call<Void> call = webServiceAPI.createMessage(contactName, content);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -85,13 +85,7 @@ public class MessageAPI implements Runnable {
 
     @Override
     public void run() {
-        List<Contact> contacts = contactDao.index();
-        if (contacts != null) {
-            List<Message> messages = messageDao.index();
-            for (Contact c: contacts) {
-                get(c.getUsername());
-            }
-        }
+        get(contactName);
     }
 
 }

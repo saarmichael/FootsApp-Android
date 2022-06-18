@@ -43,7 +43,7 @@ public class ChatActivity extends AppCompatActivity implements MessageListAdapte
         init();
         setListeners();
 
-        MessageAPI messageAPI = new MessageAPI(messageDao, contactDao, LoginAPI.getToken());
+        MessageAPI messageAPI = new MessageAPI(messageDao, contactDao, LoginAPI.getToken(), contact.getUsername());
         Thread thread = new Thread(messageAPI);
         thread.start();
         try {
@@ -51,11 +51,12 @@ public class ChatActivity extends AppCompatActivity implements MessageListAdapte
             messages.clear();
             messages.addAll(messageDao.index());
             messages.removeIf(m -> !m.getSentFrom().equals(contact.getUsername()));
-
             adapter.notifyDataSetChanged();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        thread.interrupt();
 
         //Button buttonSend = findViewById(R.id.button_send);
 
@@ -104,8 +105,8 @@ public class ChatActivity extends AppCompatActivity implements MessageListAdapte
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void setListeners() {
         binding.buttonSend.setOnClickListener(view -> {
-            MessageAPI messageAPI = new MessageAPI(messageDao, contactDao, LoginAPI.getToken());
-            messageAPI.post(getIntent().getStringExtra("contact_username"), binding.inputMsg.getText().toString());
+            MessageAPI messageAPI = new MessageAPI(messageDao, contactDao, LoginAPI.getToken(), contact.getUsername());
+            messageAPI.post(binding.inputMsg.getText().toString());
             sendMessage();
         });
 
