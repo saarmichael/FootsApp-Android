@@ -4,7 +4,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
-import android.widget.Button;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.footsapp_android.AppDB;
 import com.example.footsapp_android.ContactDao;
 import com.example.footsapp_android.MessageDao;
-import com.example.footsapp_android.R;
 import com.example.footsapp_android.adapters.MessageListAdapter;
 import com.example.footsapp_android.databinding.ActivityChatBinding;
 import com.example.footsapp_android.entities.Contact;
@@ -72,7 +70,6 @@ public class ChatActivity extends AppCompatActivity implements MessageListAdapte
         // get the nickname from the intent extra "contact_nickname"
         Integer contactId = getIntent().getIntExtra("contact_id", -1);
         // get the contact from the db
-        List<Contact> c = contactDao.index();
         this.contact = contactDao.get(contactId);
         this.messages = messageDao.index();
         adapter = new MessageListAdapter(this, this);
