@@ -1,6 +1,7 @@
 package com.example.footsapp_android.activities;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -31,12 +32,27 @@ public class ChatsActivity extends AppCompatActivity implements ContactsListAdap
 
     private void loadProfileImage() {
         byte[] bytes = Base64.decode(
-                                        getApplicationContext().
-                                        getSharedPreferences("user", MODE_PRIVATE).
-                                        getString("image", null), Base64.DEFAULT
-                                    );
+                getApplicationContext().
+                        getSharedPreferences("user", MODE_PRIVATE).
+                        getString("image", null), Base64.DEFAULT
+        );
         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         binding.userImage.setImageBitmap(bitmap);
+    }
+
+    @Override
+    public  void onConfigurationChanged(Configuration newConfig)
+    {
+        super.onConfigurationChanged(newConfig);
+        if(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE)
+        {
+            startActivity(new Intent(this, ChatLandscapeActivity.class));
+        }
+
+        if(newConfig.orientation == Configuration.ORIENTATION_PORTRAIT)
+        {
+            startActivity(new Intent(this, ChatsActivity.class));
+        }
     }
 
     @Override

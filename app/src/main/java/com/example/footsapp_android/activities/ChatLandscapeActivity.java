@@ -14,6 +14,7 @@ public class ChatLandscapeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        binding = ActivityChatLandcapeBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
     }
 }
