@@ -1,10 +1,7 @@
 package com.example.footsapp_android.activities;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Base64;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -30,13 +27,13 @@ public class ChatsActivity extends AppCompatActivity implements ContactsListAdap
     private ActivityChatsBinding binding;
 
     private void loadProfileImage() {
-        byte[] bytes = Base64.decode(
-                                        getApplicationContext().
-                                        getSharedPreferences("user", MODE_PRIVATE).
-                                        getString("image", null), Base64.DEFAULT
-                                    );
-        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-        binding.userImage.setImageBitmap(bitmap);
+        //byte[] bytes = Base64.decode(
+                                        //getApplicationContext().
+                                        //getSharedPreferences("user", MODE_PRIVATE).
+                                        //getString("image", null), Base64.DEFAULT
+                                   // );
+        //Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        //binding.userImage.setImageBitmap(bitmap);
     }
 
     @Override

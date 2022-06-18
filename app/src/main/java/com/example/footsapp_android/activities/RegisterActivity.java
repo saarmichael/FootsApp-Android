@@ -15,6 +15,8 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.footsapp_android.databinding.ActivityRegisterBinding;
+import com.example.footsapp_android.entities.User;
+import com.example.footsapp_android.web.RegisterAPI;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -48,8 +50,22 @@ public class RegisterActivity extends AppCompatActivity {
                         edit().
                         putString("image", this.encodedImage).
                         apply();
-                Intent intent = new Intent(this, ChatsActivity.class);
-                startActivity(intent);
+                User user = new User(username, nickname, password);
+                RegisterAPI registerAPI = new RegisterAPI(user);
+                Thread thread = new Thread(registerAPI);
+                thread.start();
+                try {
+                    thread.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                if (registerAPI.isSuccess()) {
+                    MainActivity.loginThroughAPI(username, password);
+                    Intent intent = new Intent(this, ChatsActivity.class);
+                    startActivity(intent);
+                } else {
+                    binding.etPassword.setError("Register Failed.");
+                }
             }
         });
         // get the image from devices gallery
@@ -83,7 +99,7 @@ public class RegisterActivity extends AppCompatActivity {
                         try {
                             InputStream inputStream = getContentResolver().openInputStream(imageUri);
                             Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                            binding.imageProfile.setImageBitmap(bitmap);
+                            // binding.imageProfile.setImageBitmap(bitmap);
                             binding.textImage.setVisibility(View.GONE);
                             this.encodedImage = encodeImage(bitmap);
                         } catch (FileNotFoundException e) {

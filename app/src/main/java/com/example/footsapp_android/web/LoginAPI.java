@@ -1,7 +1,5 @@
 package com.example.footsapp_android.web;
 
-import android.util.Log;
-
 import com.example.footsapp_android.MyApplication;
 import com.example.footsapp_android.R;
 
@@ -12,7 +10,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -63,24 +60,6 @@ public class LoginAPI implements Runnable{
         }
     }
 
-    public String getFooFromAPI(){
-        Call<ResponseBody> call = webServiceAPI.getFoo();
-        final String[] result = {"blar"};
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                //result[0] = response.body();
-                Log.d("LoginAPI", "onResponse: " + response.body());
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                result[0] = "bla";
-                Log.d("LoginAPI", "onFailure: " + t.getMessage());
-            }
-        });
-        return result[0];
-    }
 
     @Override
     public void run() {

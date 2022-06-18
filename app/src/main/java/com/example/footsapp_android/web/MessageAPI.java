@@ -55,7 +55,7 @@ public class MessageAPI implements Runnable {
             public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
                 List<Message> messages = response.body();
                 if (messages != null) {
-                    messageDao.nukeTable();
+                    messageDao.nukeTable(); // problematic with many contacts because clears every get
                     for (Message m: messages) {
                         m.setSentFrom(id);
                         messageDao.insert(m);
@@ -69,10 +69,25 @@ public class MessageAPI implements Runnable {
         });
     }
 
+    public void post(String id, String content) {
+        Call<Void> call = webServiceAPI.createMessage(id, content);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+            }
+        });
+
+    }
+
     @Override
     public void run() {
         List<Contact> contacts = contactDao.index();
         if (contacts != null) {
+            List<Message> messages = messageDao.index();
             for (Contact c: contacts) {
                 get(c.getUsername());
             }

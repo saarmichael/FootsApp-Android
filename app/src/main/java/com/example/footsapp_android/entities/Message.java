@@ -19,8 +19,8 @@ public class Message {
     private boolean sender;
     private String sentFrom;
 
-    public Message(int id, String content, String time, boolean sender, String sentFrom) {
-        this.id = id;
+    public Message(String content, String time, boolean sender, String sentFrom) {
+
         this.content = content;
         this.time = time;
         this.sender = sender;

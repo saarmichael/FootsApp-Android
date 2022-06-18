@@ -19,8 +19,6 @@ import com.example.footsapp_android.entities.Message;
 import com.example.footsapp_android.web.LoginAPI;
 import com.example.footsapp_android.web.MessageAPI;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,16 +50,19 @@ public class ChatActivity extends AppCompatActivity implements MessageListAdapte
             thread.join();
             messages.clear();
             messages.addAll(messageDao.index());
+            messages.removeIf(m -> !m.getSentFrom().equals(contact.getUsername()));
+
             adapter.notifyDataSetChanged();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-        Button buttonSend = findViewById(R.id.button_send);
+        //Button buttonSend = findViewById(R.id.button_send);
 
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void init() {
         //this.prefManager = new PreferenceManager(getApplicationContext());
         db = AppDB.getDatabase(this);
@@ -72,24 +73,25 @@ public class ChatActivity extends AppCompatActivity implements MessageListAdapte
         // get the contact from the db
         this.contact = contactDao.get(contactId);
         this.messages = messageDao.index();
+        messages.removeIf(m -> !m.getSentFrom().equals(contact.getUsername()));
         adapter = new MessageListAdapter(this, this);
         binding.lvMessages.setAdapter(adapter);
         binding.lvMessages.setLayoutManager(new LinearLayoutManager(this));
         adapter.setMessages(messages);
         binding.contactName.setText(this.contact.getNickname());
+
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void sendMessage() {
         // TODO send message to the server
 
-        int size = messageDao.index().size() + 1;
         // generate random sender or not sender
         boolean sender = (int) (Math.random() * 2) > 1;
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu/MM/ddTHH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();
-        String contactUsername = getIntent().getStringExtra("contact_username");
-        Message message = new Message(size, binding.inputMsg.getText().toString(), dtf.format(now), sender, contactUsername); // find a way to generate an id number from db
+        //DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu/MM/ddTHH:mm:ss");
+        //LocalDateTime now = LocalDateTime.now();
+        Message message = new Message(binding.inputMsg.getText().toString(), "12:00", sender, contact.getUsername()); // find a way to generate an id number from db
         messageDao.insert(message);
         messages.clear();
         messages.addAll(messageDao.index());
@@ -101,7 +103,11 @@ public class ChatActivity extends AppCompatActivity implements MessageListAdapte
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void setListeners() {
-        binding.buttonSend.setOnClickListener(view -> sendMessage());
+        binding.buttonSend.setOnClickListener(view -> {
+            MessageAPI messageAPI = new MessageAPI(messageDao, contactDao, LoginAPI.getToken());
+            messageAPI.post(getIntent().getStringExtra("contact_username"), binding.inputMsg.getText().toString());
+            sendMessage();
+        });
 
 
 
@@ -111,4 +117,6 @@ public class ChatActivity extends AppCompatActivity implements MessageListAdapte
     public void onMessageClick(int position) {
         return;
     }
+
+
 }

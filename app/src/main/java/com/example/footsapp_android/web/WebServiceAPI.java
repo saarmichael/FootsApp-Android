@@ -2,6 +2,7 @@ package com.example.footsapp_android.web;
 
 import com.example.footsapp_android.entities.Contact;
 import com.example.footsapp_android.entities.Message;
+import com.example.footsapp_android.entities.User;
 
 import java.util.List;
 
@@ -19,8 +20,8 @@ public interface WebServiceAPI {
     @POST("Login")
     Call<ResponseBody> login(@Query("username") String username, @Query("password") String password);
 
-    @GET("Login")
-    Call<ResponseBody> getFoo();
+    @POST("Login/Register")
+    Call<ResponseBody> register(@Query("user")User user);
 
     @GET("Contacts")
     Call<List<Contact>> getContacts();
