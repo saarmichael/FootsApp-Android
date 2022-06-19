@@ -41,7 +41,7 @@
         android:fontFamily="@font/righteous"
         android:text="@string/chats_headline"
         android:textColor="@color/text"
-        android:textSize="28sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:paddingStart="14dp"
         app:layout_constraintBottom_toBottomOf="@+id/user_image"
@@ -51,8 +51,8 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/user_image"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
         android:src="@drawable/footsapp_home_logo"
@@ -89,21 +89,21 @@
 
     <View
         android:id="@+id/viewBackground"
-        android:layout_width="503dp"
-        android:layout_height="248dp"
+        android:layout_width="469dp"
+        android:layout_height="254dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/background_chat_top"
         app:layout_constraintBottom_toTopOf="@id/send_layout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.181"
+        app:layout_constraintHorizontal_bias="0.214"
         app:layout_constraintStart_toEndOf="@+id/separate"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.962" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profile_image"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
 
@@ -116,7 +116,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/lv_messages"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:clipToPadding="false"
         android:orientation="vertical"
@@ -124,6 +124,7 @@
         android:padding="20dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
 
+        app:layout_constraintBottom_toTopOf="@+id/input_msg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/separate"
         app:layout_constraintTop_toBottomOf="@+id/viewSupporter"
@@ -143,8 +144,8 @@
         android:paddingTop="5dp"
         android:text="contact_name"
         android:textColor="@color/text"
-        android:textSize="28sp"
-
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/profile_image"
 
         app:layout_constraintStart_toEndOf="@+id/profile_image"
