@@ -78,6 +78,8 @@ public class ChatActivity extends AppCompatActivity implements MessageListAdapte
         adapter = new MessageListAdapter(this, this);
         binding.lvMessages.setAdapter(adapter);
         binding.lvMessages.setLayoutManager(new LinearLayoutManager(this));
+        // make the view atart aleady from the bottom of the messages
+        binding.lvMessages.scrollToPosition(messages.size() - 1);
         adapter.setMessages(messages);
         binding.contactName.setText(this.contact.getNickname());
 
