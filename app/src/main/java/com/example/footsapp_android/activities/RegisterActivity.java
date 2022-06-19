@@ -42,7 +42,11 @@ public class RegisterActivity extends AppCompatActivity {
             String password = binding.etPassword.getText().toString();
             String confirmPassword = binding.etConfirmPassword.getText().toString();
             if (validateRegister(username, nickname, password, confirmPassword)) {
-                // TODO register the user
+                getApplicationContext().
+                        getSharedPreferences("user", MODE_PRIVATE).
+                        edit().
+                        putBoolean("has_img", true).
+                        apply();
                 // move to contacts activity
                 // add to shared preferences the user's encodedImage
                 getApplicationContext().
@@ -134,11 +138,7 @@ public class RegisterActivity extends AppCompatActivity {
             binding.etPassword.requestFocus();
             return false;
         }*/
-        if (encodedImage == null) {
-            showToast("Please upload a profile picture");
-            //binding.ivProfilePicture.requestFocus();
-            return false;
-        }
+
         // TODO check with the server if the username is already taken
         return validInput;
     }

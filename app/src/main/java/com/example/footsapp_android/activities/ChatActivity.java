@@ -16,6 +16,7 @@ import com.example.footsapp_android.adapters.MessageListAdapter;
 import com.example.footsapp_android.databinding.ActivityChatBinding;
 import com.example.footsapp_android.entities.Contact;
 import com.example.footsapp_android.entities.Message;
+import com.example.footsapp_android.entities.Transfer;
 import com.example.footsapp_android.web.LoginAPI;
 import com.example.footsapp_android.web.MessageAPI;
 
@@ -42,21 +43,6 @@ public class ChatActivity extends AppCompatActivity implements MessageListAdapte
         setContentView(binding.getRoot());
         init();
         setListeners();
-
-        MessageAPI messageAPI = new MessageAPI(messageDao, contactDao, LoginAPI.getToken(), contact.getUsername());
-        Thread thread = new Thread(messageAPI);
-        thread.start();
-        try {
-            thread.join();
-            messages.clear();
-            messages.addAll(messageDao.index());
-            messages.removeIf(m -> !m.getSentFrom().equals(contact.getUsername()));
-            adapter.notifyDataSetChanged();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        thread.interrupt();
 
         //Button buttonSend = findViewById(R.id.button_send);
 
@@ -88,27 +74,37 @@ public class ChatActivity extends AppCompatActivity implements MessageListAdapte
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void sendMessage() {
-        // TODO send message to the server
 
         // generate random sender or not sender
-        boolean sender = (int) (Math.random() * 2) > 1;
         //DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu/MM/ddTHH:mm:ss");
         //LocalDateTime now = LocalDateTime.now();
-        Message message = new Message(binding.inputMsg.getText().toString(), "12:00", sender, contact.getUsername()); // find a way to generate an id number from db
+        String content = binding.inputMsg.getText().toString();
+        String time = "12:00";
+        Message message = new Message(content, time, true, contact.getUsername()); // find a way to generate an id number from db
         messageDao.insert(message);
         messages.clear();
         messages.addAll(messageDao.index());
+        messages.removeIf(m -> !m.getSentFrom().equals(contact.getUsername()));
         adapter.notifyItemRangeInserted(messages.size(), messages.size());
         binding.lvMessages.smoothScrollToPosition(messages.size() - 1);
         binding.lvMessages.setVisibility(View.VISIBLE);
         binding.inputMsg.setText(null);
+
+        contact.setLastMessage(content);
+        contact.setTime(time);
+        contactDao.update(contact);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void setListeners() {
         binding.buttonSend.setOnClickListener(view -> {
             MessageAPI messageAPI = new MessageAPI(messageDao, contactDao, LoginAPI.getToken(), contact.getUsername());
-            messageAPI.post(binding.inputMsg.getText().toString());
+            String myUser = getApplicationContext().
+                    getSharedPreferences("user", MODE_PRIVATE).
+                    getString("my_user", null);
+            Transfer transfer = new Transfer(myUser, contact.getUsername(), binding.inputMsg.getText().toString());
+            messageAPI.post(binding.inputMsg.getText().toString(), transfer);
+
             sendMessage();
         });
 

@@ -34,7 +34,6 @@ public class RegisterAPI implements Runnable{
         Call<ResponseBody> call = webServiceAPI.register(user);
         try {
             Response<ResponseBody> response = call.execute();
-            int a = response.code();
             this.success = response.isSuccessful();
         } catch (IOException e) { // catching request error
             e.printStackTrace();

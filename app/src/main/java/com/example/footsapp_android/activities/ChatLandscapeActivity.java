@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.footsapp_android.AppDB;
 import com.example.footsapp_android.ContactDao;
 import com.example.footsapp_android.MessageDao;
+import com.example.footsapp_android.R;
 import com.example.footsapp_android.adapters.ContactsListAdapter;
 import com.example.footsapp_android.adapters.MessageListAdapter;
 import com.example.footsapp_android.databinding.ActivityChatLandcapeBinding;
@@ -44,13 +45,21 @@ public class ChatLandscapeActivity extends AppCompatActivity implements Contacts
 
 
     private void loadProfileImage() {
-        byte[] bytes = Base64.decode(
-                getApplicationContext().
-                        getSharedPreferences("user", MODE_PRIVATE).
-                        getString("image", null), Base64.DEFAULT
-        );
-        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-        binding.userImage.setImageBitmap(bitmap);
+        Boolean hasImg = getApplicationContext().
+                getSharedPreferences("user", MODE_PRIVATE).
+                getBoolean("has_img", false);
+        if (hasImg) {
+            byte[] bytes = Base64.decode(
+                    getApplicationContext().
+                            getSharedPreferences("user", MODE_PRIVATE).
+                            getString("image", null), Base64.DEFAULT
+            );
+            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+            binding.userImage.setImageBitmap(bitmap);
+        } else {
+            binding.userImage.setImageResource(R.drawable.footsapp_home_logo);
+        }
+
     }
 
     @Override
@@ -105,11 +114,11 @@ public class ChatLandscapeActivity extends AppCompatActivity implements Contacts
     private void sendMessage() {
         // TODO send message to the server
 
-        int size = messageDao.index().size() + 1;
+        //int size = messageDao.index().size() + 1;
         // generate random sender or not sender
         boolean sender = (Math.random() * 2) > 1;
-
-        Message message = new Message(size, binding.inputMsg.getText().toString(), sender); // find a way to generate an id number from db
+        // TODO: set current time and send to constructor
+        Message message = new Message(binding.inputMsg.getText().toString(),"12:00", sender, chosenContact.getUsername()); // find a way to generate an id number from db
         messageDao.insert(message);
         messages.clear();
         messages.addAll(messageDao.index());

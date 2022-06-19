@@ -9,8 +9,8 @@ import com.google.gson.annotations.SerializedName;
 @Entity
 public class Message {
 
-
     @PrimaryKey(autoGenerate=true)
+    private int roomId;
     private int id;
     private String content;
     @SerializedName("created")
@@ -67,6 +67,13 @@ public class Message {
         this.sentFrom = sentFrom;
     }
 
+    public int getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(int roomId) {
+        this.roomId = roomId;
+    }
 
     @Override
     public String toString() {

@@ -18,7 +18,7 @@ public class User implements Serializable {
         this.username = username;
         this.nickname = nickname;
         this.password = password;
-        this.server = "7291";
+        this.server = "http://localhost:7291";
     }
 
     public int getId() {

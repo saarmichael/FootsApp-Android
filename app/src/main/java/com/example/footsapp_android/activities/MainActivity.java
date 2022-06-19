@@ -55,6 +55,17 @@ public class MainActivity extends AppCompatActivity {
             String username = binding.etUsername.getText().toString();
             String password = binding.etPassword.getText().toString();
             if (validateLogin(username, password)) {
+                getApplicationContext().
+                        getSharedPreferences("user", MODE_PRIVATE).
+                        edit().
+                        putBoolean("has_img", false).
+                        apply();
+
+                getApplicationContext().
+                        getSharedPreferences("user", MODE_PRIVATE).
+                        edit().
+                        putString("my_user", username).
+                        apply();
                 loginThroughAPI(username, password);
 
                 String token = LoginAPI.getToken();

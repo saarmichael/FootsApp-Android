@@ -5,6 +5,7 @@ import com.example.footsapp_android.MessageDao;
 import com.example.footsapp_android.MyApplication;
 import com.example.footsapp_android.R;
 import com.example.footsapp_android.entities.Message;
+import com.example.footsapp_android.entities.Transfer;
 
 import java.io.IOException;
 import java.util.List;
@@ -55,7 +56,6 @@ public class MessageAPI implements Runnable {
             public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
                 List<Message> messages = response.body();
                 if (messages != null) {
-                    messageDao.nukeTable(); // problematic with many contacts because clears every get
                     for (Message m: messages) {
                         m.setSentFrom(id);
                         messageDao.insert(m);
@@ -69,7 +69,7 @@ public class MessageAPI implements Runnable {
         });
     }
 
-    public void post(String content) {
+    public void post(String content, Transfer transfer) {
         Call<Void> call = webServiceAPI.createMessage(contactName, content);
         call.enqueue(new Callback<Void>() {
             @Override
@@ -81,7 +81,18 @@ public class MessageAPI implements Runnable {
             }
         });
 
+        Call<Void> callTransfer = webServiceAPI.transfer(transfer);
+        callTransfer.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> callTransfer, Response<Void> response) {
+            }
+
+            @Override
+            public void onFailure(Call<Void> callTransfer, Throwable t) {
+            }
+        });
     }
+
 
     @Override
     public void run() {
