@@ -21,9 +21,10 @@ public class LoginAPI implements Runnable{
     private static String token;
     private final String username;
     private final String password;
+    private final String deviceToken;
 
 
-    public LoginAPI(String username, String password) {
+    public LoginAPI(String username, String password, String deviceToken) {
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(new Interceptor() {
             @Override
             public okhttp3.Response intercept(Chain chain) throws IOException {
@@ -44,10 +45,11 @@ public class LoginAPI implements Runnable{
 
         this.username = username;
         this.password = password;
+        this.deviceToken = deviceToken;
     }
 
-    public void post(String username, String password) {
-        Call<ResponseBody> call = webServiceAPI.login(username, password);
+    public void post(String username, String password, String deviceToken) {
+        Call<ResponseBody> call = webServiceAPI.login(username, password, deviceToken);
         try {
             Response<ResponseBody> response = call.execute();
             if (response.isSuccessful()) {
@@ -63,7 +65,7 @@ public class LoginAPI implements Runnable{
 
     @Override
     public void run() {
-        post(this.username, this.password);
+        post(this.username, this.password, this.deviceToken);
     }
 
     public static String getToken() {

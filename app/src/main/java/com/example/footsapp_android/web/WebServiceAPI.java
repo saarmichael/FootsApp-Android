@@ -19,7 +19,8 @@ import retrofit2.http.Query;
 public interface WebServiceAPI {
 
     @POST("Login")
-    Call<ResponseBody> login(@Query("username") String username, @Query("password") String password);
+    Call<ResponseBody> login(@Query("username") String username, @Query("password") String password,
+                             @Query("deviceToken") String deviceToken);
 
     @POST("Login/Register")
     Call<ResponseBody> register(@Body User user);

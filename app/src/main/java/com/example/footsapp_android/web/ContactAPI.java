@@ -17,7 +17,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ContactAPI implements Runnable{
+public class ContactAPI implements Runnable {
     private ContactDao dao;
     Retrofit retrofit;
     WebServiceAPI webServiceAPI;
@@ -28,7 +28,7 @@ public class ContactAPI implements Runnable{
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(new Interceptor() {
             @Override
             public okhttp3.Response intercept(Chain chain) throws IOException {
-                Request newRequest  = chain.request().newBuilder()
+                Request newRequest = chain.request().newBuilder()
                         .addHeader("Authorization", "Bearer " + token)
                         .build();
                 return chain.proceed(newRequest);
@@ -52,10 +52,12 @@ public class ContactAPI implements Runnable{
                 List<Contact> contacts = response.body();
                 if (contacts != null) {
                     dao.nukeTable();
-                    for (Contact c: contacts) {
-                        if (c.getTime().length() != 0) {
-                            // formatting the time to show hours and minutes
-                            c.setTime(c.getTime().substring(11, 16));
+                    for (Contact c : contacts) {
+                        if (c.getTime() != null) {
+                            if (c.getTime().length() != 0) {
+                                // formatting the time to show hours and minutes
+                                c.setTime(c.getTime().substring(11, 16));
+                            }
                         }
                         dao.insert(c);
                     }

@@ -12,6 +12,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
+    private static String deviceToken;
 
 
     // private method for username and password validation
@@ -42,8 +43,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         //setContentView(R.layout.activity_main);
 
+
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(MainActivity.this, instanceIdResult -> {
-            String deviceToken = instanceIdResult.getToken();
+            deviceToken = instanceIdResult.getToken();
         });
 
         //TextView tvRegisterActivity = findViewById(R.id.tvRegisterActivity);
@@ -96,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public static void loginThroughAPI(String username, String password) {
-        LoginAPI loginAPI = new LoginAPI(username, password);
+        LoginAPI loginAPI = new LoginAPI(username, password, deviceToken);
         Thread thread = new Thread(loginAPI);
         thread.start();
         try {
