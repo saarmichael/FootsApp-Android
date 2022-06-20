@@ -28,11 +28,11 @@ public class RegisterActivity extends AppCompatActivity {
             return false;
         }
         // check that password is at least 8 characters long and contains at least one number, capital letter and special character
-        if (!password.matches("(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*])(?=\\S+$).{8,}")) {
-            binding.etPassword.setError("Password must be at least 8 characters long and contain at least one number, capital letter and special character");
-            binding.etPassword.requestFocus();
-            return false;
-        }
+//        if (!password.matches("(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*])(?=\\S+$).{8,}")) {
+//            binding.etPassword.setError("Password must be at least 8 characters long and contain at least one number, capital letter and special character");
+//            binding.etPassword.requestFocus();
+//            return false;
+//        }
         // TODO check with the server if the username is already taken
         return validInput;
     }

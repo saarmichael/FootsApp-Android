@@ -17,6 +17,15 @@
         android:theme="@style/Theme.FootsAppAndroid"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <service
+            android:name=".FBService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
         <activity
             android:name=".activities.ChatActivity"
             android:exported="false" />
