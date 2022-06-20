@@ -91,14 +91,14 @@ public class ChatActivity extends AppCompatActivity implements MessageListAdapte
         binding.inputMsg.setText(null);
 
         contact.setLastMessage(content);
-        contact.setTime(currentTime.toString());
+        contact.setTime(currentTime);
         contactDao.update(contact);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void setListeners() {
         binding.buttonSend.setOnClickListener(view -> {
-            MessageAPI messageAPI = new MessageAPI(messageDao, contactDao, LoginAPI.getToken(), contact.getUsername());
+            MessageAPI messageAPI = new MessageAPI(messageDao, contactDao, LoginAPI.getToken(), contact.getUsername(), contact.getServer());
             String myUser = getApplicationContext().
                     getSharedPreferences("user", MODE_PRIVATE).
                     getString("my_user", null);

@@ -23,10 +23,12 @@ public class MessageAPI implements Runnable {
     private ContactDao contactDao;
     private MessageDao messageDao;
     Retrofit retrofit;
+    Retrofit transferRetrofit;
     WebServiceAPI webServiceAPI;
+    WebServiceAPI transferWebServiceAPI;
     private String contactName;
 
-    public MessageAPI(MessageDao messageDao, ContactDao contactDao, String token, String contactName) {
+    public MessageAPI(MessageDao messageDao, ContactDao contactDao, String token, String contactName, String server) {
         this.contactDao = contactDao;
         this.messageDao = messageDao;
         this.contactName = contactName;
@@ -46,6 +48,13 @@ public class MessageAPI implements Runnable {
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+        if (server != null) {
+            transferRetrofit = new Retrofit.Builder()
+                    .baseUrl(server)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+            transferWebServiceAPI = transferRetrofit.create(WebServiceAPI.class);
+        }
         webServiceAPI = retrofit.create(WebServiceAPI.class);
     }
 
@@ -83,7 +92,7 @@ public class MessageAPI implements Runnable {
             }
         });
 
-        Call<Void> callTransfer = webServiceAPI.transfer(transfer);
+        Call<Void> callTransfer = transferWebServiceAPI.transfer(transfer);
         callTransfer.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> callTransfer, Response<Void> response) {

@@ -123,12 +123,13 @@
         android:overScrollMode="never"
         android:padding="20dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-
+        android:layout_marginBottom="18dp"
         app:layout_constraintBottom_toTopOf="@+id/input_msg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/separate"
         app:layout_constraintTop_toBottomOf="@+id/viewSupporter"
-        app:stackFromEnd="true" />
+        app:stackFromEnd="true"
+        tools:layout_editor_absoluteX="0dp"/>
 
     <TextView
         android:id="@+id/contact_name"

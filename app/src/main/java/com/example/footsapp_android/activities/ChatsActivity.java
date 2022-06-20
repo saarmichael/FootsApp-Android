@@ -108,7 +108,7 @@ public class ChatsActivity extends AppCompatActivity implements ContactsListAdap
 
         messageDao.nukeTable();
         for (Contact c : contacts) {
-            MessageAPI messageAPI = new MessageAPI(messageDao, contactDao, LoginAPI.getToken(), c.getUsername());
+            MessageAPI messageAPI = new MessageAPI(messageDao, contactDao, LoginAPI.getToken(), c.getUsername(), null);
             Thread thread = new Thread(messageAPI);
             thread.start();
             try {

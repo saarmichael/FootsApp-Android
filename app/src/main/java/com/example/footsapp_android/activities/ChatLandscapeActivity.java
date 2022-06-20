@@ -1,6 +1,7 @@
 package com.example.footsapp_android.activities;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
@@ -50,6 +51,21 @@ public class ChatLandscapeActivity extends AppCompatActivity implements Contacts
     private ActivityChatLandcapeBinding binding;
 
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig)
+    {
+        super.onConfigurationChanged(newConfig);
+        if(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE)
+        {
+            startActivity(new Intent(this, ChatLandscapeActivity.class));
+        }
+
+        if(newConfig.orientation == Configuration.ORIENTATION_PORTRAIT)
+        {
+            startActivity(new Intent(this, ChatsActivity.class));
+        }
+    }
+
     private void loadProfileImage() {
         Boolean hasImg = getApplicationContext().
                 getSharedPreferences("user", MODE_PRIVATE).
@@ -71,7 +87,6 @@ public class ChatLandscapeActivity extends AppCompatActivity implements Contacts
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onContactClick(int position) {
-        // TODO: load the messages to chat panel
         chosenContact = contacts.get(position);
         showChat();
     }
@@ -100,7 +115,7 @@ public class ChatLandscapeActivity extends AppCompatActivity implements Contacts
         binding.lvMessages.setAdapter(mAdapter);
         binding.lvMessages.setLayoutManager(new LinearLayoutManager(this));
         binding.lvMessages.setVisibility(View.GONE);
-        // make the view atart aleady from the bottom of the messages
+        // make the view start already from the bottom of the messages
 
 
         cAdapter = new ContactsListAdapter(this, this);
@@ -141,6 +156,7 @@ public class ChatLandscapeActivity extends AppCompatActivity implements Contacts
         chosenContact.setLastMessage(content);
         chosenContact.setTime(currentTime);
         contactDao.update(chosenContact);
+        cAdapter.notifyDataSetChanged();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -152,13 +168,15 @@ public class ChatLandscapeActivity extends AppCompatActivity implements Contacts
         });
 
         binding.buttonSend.setOnClickListener(view -> {
-            MessageAPI messageAPI = new MessageAPI(messageDao, contactDao, LoginAPI.getToken(), chosenContact.getUsername());
+            String content = binding.inputMsg.getText().toString();
+            sendMessage();
+            MessageAPI messageAPI = new MessageAPI(messageDao, contactDao, LoginAPI.getToken(), chosenContact.getUsername(), chosenContact.getServer());
             String myUser = getApplicationContext().
                     getSharedPreferences("user", MODE_PRIVATE).
                     getString("my_user", null);
-            Transfer transfer = new Transfer(myUser, chosenContact.getUsername(), binding.inputMsg.getText().toString());
-            messageAPI.post(binding.inputMsg.getText().toString(), transfer);
-            sendMessage();
+            Transfer transfer = new Transfer(myUser, chosenContact.getUsername(), content);
+            messageAPI.post(content, transfer);
+
         });
 
     }
