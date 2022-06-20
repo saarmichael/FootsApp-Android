@@ -26,6 +26,8 @@ import com.example.footsapp_android.web.ContactAPI;
 import com.example.footsapp_android.web.LoginAPI;
 import com.example.footsapp_android.web.MessageAPI;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -119,15 +121,15 @@ public class ChatLandscapeActivity extends AppCompatActivity implements Contacts
         loadProfileImage();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void sendMessage() {
-        // TODO send message to the server
-
         //int size = messageDao.index().size() + 1;
         // generate random sender or not sender
-        // TODO: set current time and send to constructor
         String content = binding.inputMsg.getText().toString();
-        String time = "12:00";
-        Message message = new Message(content,time, true, chosenContact.getUsername()); // find a way to generate an id number from db
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
+        LocalDateTime now = LocalDateTime.now();
+        String currentTime = dtf.format(now);
+        Message message = new Message(content, currentTime, true, chosenContact.getUsername()); // find a way to generate an id number from db
         messageDao.insert(message);
         messages.clear();
         messages.addAll(messageDao.index());
@@ -137,10 +139,11 @@ public class ChatLandscapeActivity extends AppCompatActivity implements Contacts
         binding.inputMsg.setText(null);
 
         chosenContact.setLastMessage(content);
-        chosenContact.setTime(time);
+        chosenContact.setTime(currentTime);
         contactDao.update(chosenContact);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void setListeners() {
         // adding a new contact
         binding.btnNew.setOnClickListener(view -> {
@@ -160,6 +163,7 @@ public class ChatLandscapeActivity extends AppCompatActivity implements Contacts
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

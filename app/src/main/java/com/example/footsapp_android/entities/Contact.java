@@ -32,13 +32,13 @@ public class Contact implements Serializable {
         this.id = id;
     }
 
-    public Contact(int id, String username, String nickname, String server) {
+    public Contact(int id, String username, String nickname, String server, String lastMessage, String time) {
         this.id = id;
         this.username = username;
         this.nickname = nickname;
         this.server = server;
-        this.lastMessage = "** No messages **";
-        this.time = "just now";
+        this.lastMessage = lastMessage;
+        this.time = time;
     }
 
     public String getUsername() {

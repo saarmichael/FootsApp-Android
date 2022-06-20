@@ -20,6 +20,8 @@ import com.example.footsapp_android.entities.Transfer;
 import com.example.footsapp_android.web.LoginAPI;
 import com.example.footsapp_android.web.MessageAPI;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,13 +76,11 @@ public class ChatActivity extends AppCompatActivity implements MessageListAdapte
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void sendMessage() {
-
-        // generate random sender or not sender
-        //DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu/MM/ddTHH:mm:ss");
-        //LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
+        LocalDateTime now = LocalDateTime.now();
+        String currentTime = dtf.format(now);
         String content = binding.inputMsg.getText().toString();
-        String time = "12:00";
-        Message message = new Message(content, time, true, contact.getUsername()); // find a way to generate an id number from db
+        Message message = new Message(content, currentTime, true, contact.getUsername()); // find a way to generate an id number from db
         messageDao.insert(message);
         messages.clear();
         messages.addAll(messageDao.index());
@@ -91,7 +91,7 @@ public class ChatActivity extends AppCompatActivity implements MessageListAdapte
         binding.inputMsg.setText(null);
 
         contact.setLastMessage(content);
-        contact.setTime(time);
+        contact.setTime(currentTime.toString());
         contactDao.update(contact);
     }
 

@@ -53,6 +53,10 @@ public class ContactAPI implements Runnable{
                 if (contacts != null) {
                     dao.nukeTable();
                     for (Contact c: contacts) {
+                        if (c.getTime().length() != 0) {
+                            // formatting the time to show hours and minutes
+                            c.setTime(c.getTime().substring(11, 16));
+                        }
                         dao.insert(c);
                     }
                 }

@@ -58,6 +58,8 @@ public class MessageAPI implements Runnable {
                 if (messages != null) {
                     for (Message m: messages) {
                         m.setSentFrom(id);
+                        // formatting the time to show hours and minutes
+                        m.setTime(m.getTime().substring(11, 16));
                         messageDao.insert(m);
                     }
                 }

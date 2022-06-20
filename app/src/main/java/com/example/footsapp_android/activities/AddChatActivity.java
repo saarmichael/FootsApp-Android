@@ -36,7 +36,7 @@ public class AddChatActivity extends AppCompatActivity {
             int size = contactDao.index().size() + 1;
             Contact contact = new Contact(size, etUser.getText().toString(),
                     etNickname.getText().toString(),
-                    etServer.getText().toString()); // find a way to generate an id number from db
+                    etServer.getText().toString(), "", ""); // find a way to generate an id number from db
             contactDao.insert(contact);
 
             ContactAPI contactAPI = new ContactAPI(contactDao, LoginAPI.getToken());
