@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.footsapp_android.databinding.ActivityMainBinding;
 import com.example.footsapp_android.web.LoginAPI;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,6 +41,10 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         //setContentView(R.layout.activity_main);
+
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(MainActivity.this, instanceIdResult -> {
+            String deviceToken = instanceIdResult.getToken();
+        });
 
         //TextView tvRegisterActivity = findViewById(R.id.tvRegisterActivity);
         // on click, go to RegisterActivity
@@ -88,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
 
     public static void loginThroughAPI(String username, String password) {
         LoginAPI loginAPI = new LoginAPI(username, password);
