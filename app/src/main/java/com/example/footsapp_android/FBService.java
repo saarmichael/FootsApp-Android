@@ -39,8 +39,20 @@ public class FBService extends FirebaseMessagingService {
 
                 sendBroadcast(broadcastIntent);
             } else {
+                String content = remoteMessage.getNotification().getBody();
+
+
+                createNotificationChannel();
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "1")
+                        .setSmallIcon(R.drawable.footapp_logo)
+                        .setContentTitle("New contact")
+                        .setContentText(remoteMessage.getNotification().getBody())
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+                notificationManager.notify(1, builder.build());
+
                 Intent broadcastIntent = new Intent();
-                broadcastIntent.setAction(ChatsActivity.NOTIFY_ACTIVITY_ACTION );
+                broadcastIntent.setAction(ChatsActivity.NOTIFY_ACTIVITY_ACTION2 );
 
                 sendBroadcast(broadcastIntent);
             }

@@ -29,6 +29,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class ChatActivity extends AppCompatActivity implements MessageListAdapter.OnMessageClickListener {
 
@@ -81,11 +82,17 @@ public class ChatActivity extends AppCompatActivity implements MessageListAdapte
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private void sendMessage() {
+    public static String getCurrentTime() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
         LocalDateTime now = LocalDateTime.now();
         String currentTime = dtf.format(now);
+        return currentTime;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void sendMessage() {
         String content = binding.inputMsg.getText().toString();
+        String currentTime = getCurrentTime();
         Message message = new Message(content, currentTime, true, contact.getUsername()); // find a way to generate an id number from db
         messageDao.insert(message);
         messages.clear();
@@ -126,6 +133,7 @@ public class ChatActivity extends AppCompatActivity implements MessageListAdapte
     protected void onStart() {
         super.onStart();
         broadcastReceiver = new BroadcastReceiver() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onReceive(Context context, Intent intent) {
                 if (intent.getAction().equals(NOTIFY_ACTIVITY_ACTION ))
@@ -135,23 +143,31 @@ public class ChatActivity extends AppCompatActivity implements MessageListAdapte
                     String from = info[0];
                     String text = info[1];
                     // TODO: set current time
-                    Message m = new Message(text, "12:00", false, from);
+                    String currentTime = getCurrentTime();
+                    Message m = new Message(text, currentTime, false, from);
                     messageDao.insert(m);
                     if (Objects.equals(from, contact.getUsername())) {
                         messages.clear();
                         messages.addAll(messageDao.get(contact.getUsername()));
                         adapter.notifyDataSetChanged();
-
-                        contact.setLastMessage(text);
-                        contact.setTime("12:00");
-                        contactDao.update(contact);
                     }
+                    Contact contact = contactDao.index().stream().filter(c -> Objects.equals(c.getUsername(), from))
+                            .collect(Collectors.toList()).get(0);
+
+                    contact.setLastMessage(text);
+                    contact.setTime(currentTime);
+                    contactDao.update(contact);
                 }
             }
         };
 
         IntentFilter filter = new IntentFilter( NOTIFY_ACTIVITY_ACTION );
         registerReceiver(broadcastReceiver, filter);
+    }
+
+    private void launchEvent() {
+        Intent eventIntent = new Intent("ReceiveMessage");
+        this.sendBroadcast(eventIntent);
     }
 
     @Override

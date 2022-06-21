@@ -7,10 +7,11 @@ import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Base64;
-import android.util.Log;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -21,12 +22,15 @@ import com.example.footsapp_android.R;
 import com.example.footsapp_android.adapters.ContactsListAdapter;
 import com.example.footsapp_android.databinding.ActivityChatsBinding;
 import com.example.footsapp_android.entities.Contact;
+import com.example.footsapp_android.entities.Message;
 import com.example.footsapp_android.web.ContactAPI;
 import com.example.footsapp_android.web.LoginAPI;
 import com.example.footsapp_android.web.MessageAPI;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class ChatsActivity extends AppCompatActivity implements ContactsListAdapter.OnContactClickListener {
 
@@ -35,9 +39,11 @@ public class ChatsActivity extends AppCompatActivity implements ContactsListAdap
     private MessageDao messageDao;
     private List<Contact> contacts;
     private ContactsListAdapter adapter;
+    private ContactAPI contactAPI;
     // binding
     private ActivityChatsBinding binding;
     public static final String NOTIFY_ACTIVITY_ACTION = "notify_activity";
+    public static final String NOTIFY_ACTIVITY_ACTION2 = "notify_activity2";
     private BroadcastReceiver broadcastReceiver;
 
     private void loadProfileImage() {
@@ -82,7 +88,7 @@ public class ChatsActivity extends AppCompatActivity implements ContactsListAdap
         db = AppDB.getDatabase(this);
         contactDao = db.contactDao();
         messageDao = db.messageDao();
-        ContactAPI contactAPI = new ContactAPI(contactDao, LoginAPI.getToken());
+        contactAPI = new ContactAPI(contactDao, LoginAPI.getToken());
 
 
         binding.btnNew.setOnClickListener(view -> {
@@ -106,7 +112,6 @@ public class ChatsActivity extends AppCompatActivity implements ContactsListAdap
             Thread contactsThread = new Thread(contactAPI);
             contactsThread.start();
             contactsThread.join();
-            Log.d("contactdao", "asd");
             contacts.clear();
             contacts.addAll(contactDao.index());
             adapter.notifyItemRangeInserted(contacts.size(), contacts.size());
@@ -128,54 +133,50 @@ public class ChatsActivity extends AppCompatActivity implements ContactsListAdap
         loadProfileImage();
     }
 
-/*
-    @Override
-    protected void onResume() {
-        super.onResume();
-        messageDao.nukeTable();
-        for (Contact c : contacts) {
-            MessageAPI messageAPI = new MessageAPI(messageDao, contactDao, LoginAPI.getToken(), c.getUsername());
-            Thread thread = new Thread(messageAPI);
-            thread.start();
-            try {
-                thread.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
-        contactDao.nukeTable();
-        ContactAPI contactAPI = new ContactAPI(contactDao, LoginAPI.getToken());
-        Thread contactsThread = new Thread(contactAPI);
-        contactsThread.start();
-        try {
-            contactsThread.join();
-            contacts.clear();
-            contacts.addAll(contactDao.index());
-            adapter.notifyDataSetChanged();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-*/
 
     @Override
     protected void onStart() {
         super.onStart();
         broadcastReceiver = new BroadcastReceiver() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onReceive(Context context, Intent intent) {
                 if (intent.getAction().equals(NOTIFY_ACTIVITY_ACTION ))
                 {
+                    String content = intent.getExtras().getString("content", null);
+                    String[] info = content.split(": ");
+                    String from = info[0];
+                    String text = info[1];
+                    Contact contact = contacts.stream().filter(c -> Objects.equals(c.getUsername(), from))
+                            .collect(Collectors.toList()).get(0);
+                    String currentTime = ChatActivity.getCurrentTime();
+                    Message m = new Message(text, currentTime, false, from);
+                    messageDao.insert(m);
+                    contact.setLastMessage(text);
+                    contact.setTime(currentTime);
+                    contactDao.update(contact);
                     contacts.clear();
                     contacts.addAll(contactDao.index());
                     adapter.notifyDataSetChanged();
+                }
+
+                if (intent.getAction().equals(NOTIFY_ACTIVITY_ACTION2)) {
+                    try {
+                        Thread contactsThread = new Thread(contactAPI);
+                        contactsThread.start();
+                        contactsThread.join();
+                        contacts.clear();
+                        contacts.addAll(contactDao.index());
+                        adapter.notifyItemRangeInserted(contacts.size(), contacts.size());
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         };
 
         IntentFilter filter = new IntentFilter( NOTIFY_ACTIVITY_ACTION );
+        filter.addAction(NOTIFY_ACTIVITY_ACTION2);
         registerReceiver(broadcastReceiver, filter);
     }
 
@@ -190,9 +191,16 @@ public class ChatsActivity extends AppCompatActivity implements ContactsListAdap
     @Override
     protected void onRestart() {
         super.onRestart();
-        contacts.clear();
-        contacts.addAll(contactDao.index());
-        adapter.notifyDataSetChanged();
+        try {
+            Thread contactsThread = new Thread(contactAPI);
+            contactsThread.start();
+            contactsThread.join();
+            contacts.clear();
+            contacts.addAll(contactDao.index());
+            adapter.notifyItemRangeInserted(contacts.size(), contacts.size());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
