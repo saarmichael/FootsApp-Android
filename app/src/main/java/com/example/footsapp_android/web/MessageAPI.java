@@ -60,7 +60,7 @@ public class MessageAPI implements Runnable {
     }
 
     public void get(String id) {
-        Call<List<Message>> call = webServiceAPI.getMessages(id);
+/*        Call<List<Message>> call = webServiceAPI.getMessages(id);
         call.enqueue(new Callback<List<Message>>() {
             @Override
             public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
@@ -78,7 +78,23 @@ public class MessageAPI implements Runnable {
             @Override
             public void onFailure(Call<List<Message>> call, Throwable t) {
             }
-        });
+        });*/
+
+        Call<List<Message>> call = webServiceAPI.getMessages(id);
+        try {
+            Response<List<Message>> response = call.execute();
+            List<Message> messages = response.body();
+            if (messages != null) {
+                for (Message m: messages) {
+                    m.setSentFrom(id);
+                    // formatting the time to show hours and minutes
+                    m.setTime(m.getTime().substring(11, 16));
+                    messageDao.insert(m);
+                }
+            }
+        } catch (IOException e) { // catching request error
+            e.printStackTrace();
+        }
     }
 
     public void post(String content, Transfer transfer) {
