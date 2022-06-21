@@ -33,8 +33,7 @@ public class AddChatActivity extends AppCompatActivity {
             EditText etServer = findViewById(R.id.etServer);
 
 
-            int size = contactDao.index().size() + 1;
-            Contact contact = new Contact(size, etUser.getText().toString(),
+            Contact contact = new Contact(etUser.getText().toString(),
                     etNickname.getText().toString(),
                     etServer.getText().toString(), "", ""); // find a way to generate an id number from db
             contactDao.insert(contact);

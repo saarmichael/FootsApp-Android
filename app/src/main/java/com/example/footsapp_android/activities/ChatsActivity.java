@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -100,10 +101,12 @@ public class ChatsActivity extends AppCompatActivity implements ContactsListAdap
         contacts = contactDao.index();
         adapter.setContacts(contacts);
 
-        Thread contactsThread = new Thread(contactAPI);
-        contactsThread.start();
+
         try {
+            Thread contactsThread = new Thread(contactAPI);
+            contactsThread.start();
             contactsThread.join();
+            Log.d("contactdao", "asd");
             contacts.clear();
             contacts.addAll(contactDao.index());
             adapter.notifyItemRangeInserted(contacts.size(), contacts.size());

@@ -32,8 +32,7 @@ public class Contact implements Serializable {
         this.id = id;
     }
 
-    public Contact(int id, String username, String nickname, String server, String lastMessage, String time) {
-        this.id = id;
+    public Contact(String username, String nickname, String server, String lastMessage, String time) {
         this.username = username;
         this.nickname = nickname;
         this.server = server;

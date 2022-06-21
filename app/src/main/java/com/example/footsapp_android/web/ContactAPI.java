@@ -46,29 +46,26 @@ public class ContactAPI implements Runnable {
 
     public void get() {
         Call<List<Contact>> call = webServiceAPI.getContacts();
-        call.enqueue(new Callback<List<Contact>>() {
-            @Override
-            public void onResponse(Call<List<Contact>> call, Response<List<Contact>> response) {
-                List<Contact> contacts = response.body();
-                if (contacts != null) {
-                    dao.nukeTable();
-                    for (Contact c : contacts) {
-                        if (c.getTime() != null) {
-                            if (c.getTime().length() != 0) {
-                                // formatting the time to show hours and minutes
-                                c.setTime(c.getTime().substring(11, 16));
-                            }
+        try {
+            Response<List<Contact>> response = call.execute();
+            List<Contact> contacts = response.body();
+            if (contacts != null) {
+                dao.nukeTable();
+                for (Contact c : contacts) {
+                    if (c.getTime() != null) {
+                        if (c.getTime().length() != 0) {
+                            // formatting the time to show hours and minutes
+                            c.setTime(c.getTime().substring(11, 16));
                         }
-                        dao.insert(c);
                     }
+                    dao.insert(c);
                 }
             }
-
-            @Override
-            public void onFailure(Call<List<Contact>> call, Throwable t) {
-            }
-        });
+        } catch (IOException e) { // catching request error
+            e.printStackTrace();
+        }
     }
+
 
     public void post(Contact contact) {
         Call<Void> call = webServiceAPI.createContact(contact);
