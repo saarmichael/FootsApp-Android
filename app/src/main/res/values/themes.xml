@@ -15,4 +15,64 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="Theme.text_view" parent="Theme.FootsAppAndroid">
+        <item name="android:color">@color/text</item>
+    </style>
+
+    <style name="Theme.headline_text" parent="Theme.FootsAppAndroid">
+        <item name="android:color">@color/text</item>
+    </style>
+
+    <style name="Theme.message_text" parent="Theme.FootsAppAndroid">
+        <item name="android:color">@color/text</item>
+    </style>
+
+    <style name="Theme.hint_text" parent="Theme.FootsAppAndroid">
+        <item name="android:color">@color/text</item>
+    </style>
+
+    <style name="Theme.main_buttons" parent="Theme.FootsAppAndroid">
+        <item name="android:backgroundTint">@color/green</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:fontFamily">@font/righteous</item>
+    </style>
+
+    <style name="Theme.secondary_buttons" parent="Theme.FootsAppAndroid">
+        <item name="android:backgroundTint">@color/teal_700</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:fontFamily">@font/righteous</item>
+    </style>
+
+
+    <style name="Theme.green_background" parent="Theme.FootsAppAndroid">
+        <item name="android:background">@color/background_screen</item>
+    </style>
+
+    <style name="Theme.input_background" parent="Theme.FootsAppAndroid">
+        <item name="android:background">@drawable/background_input</item>
+        <item name="android:textColorHint">@color/text</item>
+    </style>
+
+    <style name="Theme.colorless_background" parent="Theme.FootsAppAndroid">
+        <item name="android:color">@color/login_background</item>
+    </style>
+
+    <style name="Theme.msg_sent" parent="Theme.FootsAppAndroid">
+        <item name="android:color">@color/msg_content_send</item>
+    </style>
+
+    <style name="Theme.msg_received" parent="Theme.FootsAppAndroid">
+        <item name="android:color">@color/msg_content_send</item>
+    </style>
+
+    <style name="Theme.register_image" parent="Theme.FootsAppAndroid">
+        <item name="android:background">@drawable/register_background_image</item>
+    </style>
+
+
+
+
 </resources>
