@@ -1,14 +1,15 @@
 # FootsApp-Android
-* each repository has its own instructions
+* Each repository has its own instructions
 
 ### Android instructions: (this repository)
-- work on branch: master.
-- when adding a new contact's server enter a full address starting with *http*. example: http://localhost:7291
+- Work on branch: master.
+- When adding a new contact's server enter a full address starting with *http*. example: http://localhost:7291
+- open and server simultaneously.
 
 
 ### Server instructions: (https://github.com/dam-ari/FootsAppServer)
-- work on branch: v3-final.
-
+- Work on branch: v3-final.
+- Set footsapp-web.api as startup project and run normaly (footsapp_server).
 
 ### Client instructions: (https://github.com/dam-ari/footsapp)
-- work on branch: v3-final.
+- Work on branch: v3-final.
