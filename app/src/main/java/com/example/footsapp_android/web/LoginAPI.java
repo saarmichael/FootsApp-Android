@@ -18,6 +18,7 @@ public class LoginAPI implements Runnable{
     Retrofit retrofit;
     WebServiceAPI webServiceAPI;
     private static String token;
+    public static boolean validURL;
     private final String username;
     private final String password;
     private final String deviceToken;
@@ -34,17 +35,23 @@ public class LoginAPI implements Runnable{
             }
         }).build();
 
+        validURL = true;
 
-        retrofit = new Retrofit.Builder()
-                .baseUrl(MyApplication.BASE_URL)
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        webServiceAPI = retrofit.create(WebServiceAPI.class);
+        try {
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(MyApplication.BASE_URL)
+                    .client(client)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+            webServiceAPI = retrofit.create(WebServiceAPI.class);
+        } catch (Exception e) {
+            validURL = false;
+        }
 
         this.username = username;
         this.password = password;
         this.deviceToken = deviceToken;
+
     }
 
     public void post(String username, String password, String deviceToken) {

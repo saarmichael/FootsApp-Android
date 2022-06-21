@@ -3,9 +3,11 @@ package com.example.footsapp_android.activities;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.footsapp_android.MyApplication;
 import com.example.footsapp_android.databinding.ActivityMainBinding;
 import com.example.footsapp_android.web.LoginAPI;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -109,6 +111,10 @@ public class MainActivity extends AppCompatActivity {
 
     public static void loginThroughAPI(String username, String password) {
         LoginAPI loginAPI = new LoginAPI(username, password, deviceToken);
+        if (!LoginAPI.validURL) {
+            Toast.makeText(MyApplication.context, "couldn't connect to the server", Toast.LENGTH_LONG).show();
+            return;
+        }
         Thread thread = new Thread(loginAPI);
         thread.start();
         try {
