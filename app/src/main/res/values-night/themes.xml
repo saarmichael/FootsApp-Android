@@ -14,4 +14,82 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+
+    <style name="Theme.text_view" parent="Theme.FootsAppAndroid">
+        <item name="android:color">@color/msg_text</item>
+    </style>
+
+    <style name="Theme.headline_text" parent="Theme.FootsAppAndroid">
+        <item name="android:color">@color/msg_text</item>
+    </style>
+
+    <style name="Theme.message_text" parent="Theme.FootsAppAndroid">
+        <item name="android:color">@color/msg_text</item>
+    </style>
+
+    <style name="Theme.hint_text" parent="Theme.FootsAppAndroid">
+        <item name="android:color">@color/input_fields</item>
+    </style>
+
+    <style name="Theme.main_buttons" parent="Theme.FootsAppAndroid">
+        <item name="android:backgroundTint">@color/buttons</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:fontFamily">@font/righteous</item>
+    </style>
+
+    <style name="Theme.secondary_buttons" parent="Theme.FootsAppAndroid">
+        <item name="android:backgroundTint">@color/teal_200</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:fontFamily">@font/righteous</item>
+    </style>
+
+
+    <style name="Theme.green_background" parent="Theme.FootsAppAndroid">
+        <item name="android:background">@color/prime</item>
+    </style>
+
+    <style name="Theme.input_background" parent="Theme.FootsAppAndroid">
+        <item name="android:background">@drawable/background_input_dark</item>
+        <item name="android:textColorHint">@color/input_fields</item>
+        <item name="android:textColor">@color/input_fields</item>
+    </style>
+
+    <style name="Theme.colorless_background" parent="Theme.FootsAppAndroid">
+        <item name="android:background">@color/black</item>
+    </style>
+
+    <style name="Theme.msg_sent" parent="Theme.FootsAppAndroid">
+        <item name="android:background">@drawable/msg_sent_dark</item>
+        <item name="android:textColor">@color/msg_text_dark</item>
+    </style>
+    <style name="Theme.msg_received" parent="Theme.FootsAppAndroid">
+        <item name="android:background">@drawable/msg_rcv_dark</item>
+        <item name="android:textColor">@color/msg_text_dark</item>
+    </style>
+
+    <style name="Theme.register_image" parent="Theme.FootsAppAndroid">
+        <item name="android:background">@drawable/register_background_image_dark</item>
+    </style>
+
+    <style name="Theme.chats_background" parent="Theme.FootsAppAndroid">
+        <item name="android:background">@drawable/background_round_screen_dark</item>
+    </style>
+
+    <style name="Theme.chat_background" parent="Theme.FootsAppAndroid">
+        <item name="android:background">@drawable/background_chat_top_dark</item>
+    </style>
+
+    <style name="Theme.chat_input" parent="Theme.FootsAppAndroid">
+        <item name="android:background">@drawable/input_background_dark</item>
+        <item name="android:textColor">@color/msg_text_dark</item>
+        <item name="android:textColorHint">@color/msg_text_dark</item>
+    </style>
+
+    <style name="Theme.send_icon" parent="Theme.FootsAppAndroid">
+        <item name="android:tint">@color/msg_text_dark</item>
+    </style>
+
 </resources>

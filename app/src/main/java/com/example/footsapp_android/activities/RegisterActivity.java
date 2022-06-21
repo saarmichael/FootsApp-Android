@@ -80,7 +80,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private String encodeImage(Bitmap bitmap) {
-        int previewWidth = 150;
+        int previewWidth = 80;
         int previewHeight = bitmap.getHeight() * previewWidth / bitmap.getWidth();
         Bitmap previewBitmap = Bitmap.createScaledBitmap(bitmap, previewWidth, previewHeight, false);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -100,6 +100,8 @@ public class RegisterActivity extends AppCompatActivity {
                             Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
                             // binding.imageProfile.setImageBitmap(bitmap);
                             binding.textImage.setVisibility(View.GONE);
+                            binding.imageProfile.setVisibility(View.VISIBLE);
+                            binding.imageProfile.setImageBitmap(bitmap);
                             this.encodedImage = encodeImage(bitmap);
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();

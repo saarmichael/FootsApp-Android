@@ -4,10 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
 
+    style="@style/Theme.green_background"
     android:layout_width="match_parent"
 
     android:layout_height="match_parent"
-    android:background="@color/prime"
+
     android:clipToPadding="false"
     android:overScrollMode="never"
     android:padding="24dp"
@@ -25,13 +26,13 @@
 
 
         <TextView
+            style="@style/Theme.headline_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/righteous"
             android:text="@string/welcome_to_footsapp"
-            android:textColor="@color/text"
             android:textSize="32sp"
             android:textStyle="bold" />
 
@@ -43,12 +44,13 @@
 
             android:orientation="vertical">
 
+
             <EditText
                 android:id="@+id/etUsername"
+                style="@style/Theme.input_background"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/background_input"
                 android:fontFamily="@font/righteous"
                 android:hint="@string/name"
                 android:imeOptions="actionNext"
@@ -56,16 +58,14 @@
                 android:inputType="text"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:textColor="@color/text"
                 android:textSize="13sp" />
-
 
             <EditText
                 android:id="@+id/etPassword"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginTop="16dp"
-                android:background="@drawable/background_input"
+                style="@style/Theme.input_background"
                 android:fontFamily="@font/righteous"
                 android:hint="@string/password"
                 android:imeOptions="actionNext"
@@ -73,7 +73,6 @@
                 android:inputType="textPassword"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:textColor="@color/text"
                 android:textSize="13sp" />
 
         </LinearLayout>
@@ -83,35 +82,25 @@
             android:id="@+id/btnLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/Theme.main_buttons"
             android:layout_gravity="center"
             android:layout_marginTop="40dp"
-            android:fontFamily="@font/righteous"
+
             android:text="@string/login_btn_login"
-            android:textColor="@color/text"
-            app:backgroundTint="@color/buttons" />
+             />
 
 
 
-        <FrameLayout
-            android:id="@+id/send_layout"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_settings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Theme.main_buttons"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/input_background"
-            android:gravity="center_vertical">
+            android:layout_marginTop="40dp"
+            android:text="@string/settings"
+            />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/buttonSettings"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="4dp"
-                android:layout_marginLeft="4dp"
-                android:padding="8dp"
-                android:src="@drawable/ic_settings"
-                android:tint="@color/msg_text" />
-
-        </FrameLayout>
 
         <LinearLayout
             android:id="@+id/LoginRedirectLayout"
@@ -136,7 +125,7 @@
                 android:text="@string/login_tv_no_account"
 
                 android:textAlignment="center"
-                android:textColor="@color/text" />
+                style="@style/Theme.text_view" />
 
             <TextView
                 android:id="@+id/tvRegisterActivity"
@@ -148,7 +137,7 @@
                 android:paddingRight="20dp"
                 android:text="@string/login_tv_sign_up"
                 android:textAlignment="center"
-                android:textColor="@color/text" />
+                style="@style/Theme.text_view" />
 
         </LinearLayout>
 

@@ -22,7 +22,7 @@
     <string name="chats_headline">Chats</string>
     <string name="send_a_message">send a message</string>
     <string name="welcome_to_footsapp">Welcome to FootsApp!</string>
-    <string name="add_image">select profile picture</string>
+    <string name="add_image">select picture</string>
     <string name="name">Username</string>
     <string name="nickname">Nickname</string>
     <string name="password">Password</string>

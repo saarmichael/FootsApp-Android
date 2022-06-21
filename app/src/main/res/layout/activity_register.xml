@@ -5,11 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
 
     android:layout_width="match_parent"
-
+    style="@style/Theme.green_background"
     android:layout_height="match_parent"
     android:clipToPadding="false"
     android:overScrollMode="never"
-    android:background="@color/prime"
     android:padding="24dp"
     android:scrollbars="none"
     tools:context=".activities.RegisterActivity">
@@ -27,7 +26,7 @@
             android:layout_marginTop="20dp"
             android:fontFamily="@font/righteous"
             android:text="@string/welcome_to_footsapp"
-            android:textColor="@color/text"
+            style="@style/Theme.headline_text"
             android:textSize="32sp"
             android:textStyle="bold" />
 
@@ -50,9 +49,9 @@
 
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/imageProfile"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:background="@drawable/register_background_image"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    style="@style/Theme.register_image"
                     android:scaleType="centerCrop"
                     app:riv_oval="true" />
 
@@ -63,7 +62,7 @@
                     android:layout_gravity="center"
                     android:fontFamily="@font/righteous"
                     android:text="@string/add_image"
-                    android:textColor="@color/text"
+                    style="@style/Theme.text_view"
                     android:textSize="10sp" />
 
             </FrameLayout>
@@ -72,8 +71,9 @@
                 android:id="@+id/etUsername"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
+                style="@style/Theme.input_background"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/background_input"
+
                 android:fontFamily="@font/righteous"
                 android:hint="@string/name"
                 android:imeOptions="actionNext"
@@ -81,7 +81,6 @@
                 android:inputType="text"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:textColor="@color/text"
                 android:textSize="13sp" />
 
             <EditText
@@ -89,8 +88,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginTop="16dp"
+                style="@style/Theme.input_background"
 
-                android:background="@drawable/background_input"
                 android:fontFamily="@font/righteous"
                 android:hint="@string/nickname"
                 android:imeOptions="actionNext"
@@ -98,7 +97,6 @@
                 android:inputType="textEmailAddress"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:textColor="@color/text"
                 android:textSize="13sp" />
 
             <EditText
@@ -106,7 +104,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginTop="16dp"
-                android:background="@drawable/background_input"
+
                 android:fontFamily="@font/righteous"
                 android:hint="@string/password"
                 android:imeOptions="actionNext"
@@ -114,7 +112,7 @@
                 android:inputType="textPassword"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:textColor="@color/text"
+                style="@style/Theme.input_background"
                 android:textSize="13sp" />
 
             <EditText
@@ -122,7 +120,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginTop="16dp"
-                android:background="@drawable/background_input"
+
                 android:fontFamily="@font/righteous"
                 android:hint="@string/confirm_password"
                 android:imeOptions="actionDone"
@@ -130,7 +128,7 @@
                 android:inputType="textPassword"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:textColor="@color/text"
+                style="@style/Theme.input_background"
                 android:textSize="13sp" />
 
         </LinearLayout>
@@ -142,8 +140,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:textColor="@color/text"
-            app:backgroundTint="@color/buttons"
+            style="@style/Theme.main_buttons"
             android:fontFamily="@font/righteous"
             android:text="@string/register_btn_register" />
 
@@ -169,7 +166,7 @@
                 android:paddingBottom="5dp"
                 android:text="@string/register_tv_account_msg"
                 android:textAlignment="center"
-                android:textColor="@color/text" />
+                style="@style/Theme.text_view" />
 
             <TextView
                 android:id="@+id/tvLoginActivity"
@@ -181,7 +178,7 @@
                 android:paddingRight="20dp"
                 android:text="@string/register_tv_login"
                 android:textAlignment="center"
-                android:textColor="@color/text" />
+                style="@style/Theme.text_view" />
 
         </LinearLayout>
 

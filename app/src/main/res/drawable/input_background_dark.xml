@@ -3,7 +3,7 @@
     android:shape="rectangle"
     >
     <solid
-        android:color="@color/input_fields"
+        android:color="@color/background_screen"
         />
     <corners
         android:radius="24dp"
