@@ -82,6 +82,7 @@ public class ChatsActivity extends AppCompatActivity implements ContactsListAdap
         super.onCreate(savedInstanceState);
         binding = ActivityChatsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        binding.userName.setText(MainActivity.CURRENT_USER);
 
         db = AppDB.getDatabase(this);
         contactDao = db.contactDao();
