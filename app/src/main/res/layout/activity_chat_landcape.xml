@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_screen"
+    style="@style/Theme.green_background"
     tools:context=".activities.ChatsActivity">
 
 
@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
-        android:background="@drawable/background_tound_screen"
+        style="@style/Theme.chats_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/separate"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/righteous"
         android:text="@string/chats_headline"
-        android:textColor="@color/text"
+        style="@style/Theme.headline_text"
         android:textSize="20sp"
         android:textStyle="bold"
         android:paddingStart="14dp"
@@ -72,6 +72,7 @@
         android:layout_marginEnd="8dp"
         android:contentDescription="@string/app_name"
         android:src="@drawable/ic_add"
+        style="@style/Theme.secondary_buttons"
         app:layout_constraintEnd_toStartOf="@+id/separate"
         app:layout_constraintBottom_toBottomOf="parent" />
 
@@ -92,7 +93,7 @@
         android:layout_width="469dp"
         android:layout_height="254dp"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/background_chat_top"
+        style="@style/Theme.chat_background"
         app:layout_constraintBottom_toTopOf="@id/send_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.214"
@@ -161,15 +162,14 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="12dp"
-        android:background="@drawable/input_background"
+        style="@style/Theme.chat_input"
         android:hint="@string/send_a_message"
         android:imeOptions="actionDone"
         android:importantForAutofill="no"
         android:inputType="text"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/msg_text"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/send_layout"
         app:layout_constraintStart_toEndOf="@+id/separate" />
@@ -189,7 +189,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="12dp"
-        android:background="@drawable/input_background"
+        style="@style/Theme.chat_input"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
@@ -201,7 +201,7 @@
             android:layout_marginLeft="4dp"
             android:padding="8dp"
             android:src="@drawable/ic_send"
-            android:tint="@color/msg_text" />
+            style="@style/Theme.send_icon" />
 
     </FrameLayout>
 

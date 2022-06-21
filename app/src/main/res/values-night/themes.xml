@@ -63,11 +63,11 @@
 
     <style name="Theme.msg_sent" parent="Theme.FootsAppAndroid">
         <item name="android:background">@drawable/msg_sent_dark</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/msg_text_dark</item>
     </style>
     <style name="Theme.msg_received" parent="Theme.FootsAppAndroid">
         <item name="android:background">@drawable/msg_rcv_dark</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/msg_text_dark</item>
     </style>
 
     <style name="Theme.register_image" parent="Theme.FootsAppAndroid">
@@ -84,12 +84,12 @@
 
     <style name="Theme.chat_input" parent="Theme.FootsAppAndroid">
         <item name="android:background">@drawable/input_background_dark</item>
-        <item name="android:textColor">@color/text</item>
-        <item name="android:textColorHint">@color/teal_200</item>
+        <item name="android:textColor">@color/msg_text_dark</item>
+        <item name="android:textColorHint">@color/msg_text_dark</item>
     </style>
 
     <style name="Theme.send_icon" parent="Theme.FootsAppAndroid">
-        <item name="android:tint">@color/teal_200</item>
+        <item name="android:tint">@color/msg_text_dark</item>
     </style>
 
 </resources>
