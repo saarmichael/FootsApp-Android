@@ -54,6 +54,7 @@
     <style name="Theme.input_background" parent="Theme.FootsAppAndroid">
         <item name="android:background">@drawable/background_input_dark</item>
         <item name="android:textColorHint">@color/input_fields</item>
+        <item name="android:textColor">@color/input_fields</item>
     </style>
 
     <style name="Theme.colorless_background" parent="Theme.FootsAppAndroid">
@@ -61,11 +62,12 @@
     </style>
 
     <style name="Theme.msg_sent" parent="Theme.FootsAppAndroid">
-        <item name="android:background">@color/teal_200</item>
+        <item name="android:background">@drawable/msg_sent_dark</item>
+        <item name="android:textColor">@color/black</item>
     </style>
-
     <style name="Theme.msg_received" parent="Theme.FootsAppAndroid">
-        <item name="android:background">@color/purple_200</item>
+        <item name="android:background">@drawable/msg_rcv_dark</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="Theme.register_image" parent="Theme.FootsAppAndroid">
@@ -74,6 +76,20 @@
 
     <style name="Theme.chats_background" parent="Theme.FootsAppAndroid">
         <item name="android:background">@drawable/background_round_screen_dark</item>
+    </style>
+
+    <style name="Theme.chat_background" parent="Theme.FootsAppAndroid">
+        <item name="android:background">@drawable/background_chat_top_dark</item>
+    </style>
+
+    <style name="Theme.chat_input" parent="Theme.FootsAppAndroid">
+        <item name="android:background">@drawable/input_background_dark</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:textColorHint">@color/teal_200</item>
+    </style>
+
+    <style name="Theme.send_icon" parent="Theme.FootsAppAndroid">
+        <item name="android:tint">@color/teal_200</item>
     </style>
 
 </resources>

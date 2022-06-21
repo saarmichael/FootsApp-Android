@@ -54,6 +54,8 @@
     <style name="Theme.input_background" parent="Theme.FootsAppAndroid">
         <item name="android:background">@drawable/background_input</item>
         <item name="android:textColorHint">@color/text</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:fontFamily">@font/righteous</item>
     </style>
 
     <style name="Theme.colorless_background" parent="Theme.FootsAppAndroid">
@@ -61,11 +63,13 @@
     </style>
 
     <style name="Theme.msg_sent" parent="Theme.FootsAppAndroid">
-        <item name="android:color">@color/msg_content_send</item>
+        <item name="android:background">@drawable/message_sent_background</item>
+        <item name="android:textColor">@color/msg_text</item>
     </style>
 
     <style name="Theme.msg_received" parent="Theme.FootsAppAndroid">
-        <item name="android:color">@color/msg_content_send</item>
+        <item name="android:background">@drawable/message_recieved_background</item>
+        <item name="android:textColor">@color/msg_text</item>
     </style>
 
     <style name="Theme.register_image" parent="Theme.FootsAppAndroid">
@@ -74,6 +78,21 @@
 
     <style name="Theme.chats_background" parent="Theme.FootsAppAndroid">
         <item name="android:background">@drawable/background_tound_screen</item>
+    </style>
+
+    <style name="Theme.chat_background" parent="Theme.FootsAppAndroid">
+        <item name="android:background">@drawable/background_chat_top</item>
+    </style>
+
+    <style name="Theme.chat_input" parent="Theme.FootsAppAndroid">
+        <item name="android:background">@drawable/input_background</item>
+        <item name="android:textColor">@color/msg_text</item>
+        <item name="android:textColorHint">@color/msg_text</item>
+    </style>
+
+
+    <style name="Theme.send_icon" parent="Theme.FootsAppAndroid">
+        <item name="android:tint">@color/msg_text</item>
     </style>
 
 

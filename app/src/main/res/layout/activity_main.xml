@@ -58,7 +58,6 @@
                 android:inputType="text"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:textColor="@color/text"
                 android:textSize="13sp" />
 
             <EditText
@@ -74,7 +73,6 @@
                 android:inputType="textPassword"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:textColor="@color/text"
                 android:textSize="13sp" />
 
         </LinearLayout>
