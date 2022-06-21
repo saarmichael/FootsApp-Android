@@ -1,5 +1,7 @@
 package com.example.footsapp_android.web;
 
+import android.widget.Toast;
+
 import com.example.footsapp_android.ContactDao;
 import com.example.footsapp_android.MessageDao;
 import com.example.footsapp_android.MyApplication;
@@ -50,11 +52,16 @@ public class MessageAPI implements Runnable {
                 .build();
         if (server != null) {
             String formattedServer = server.replace("localhost", "10.0.2.2") + "/api/";
-            transferRetrofit = new Retrofit.Builder()
-                    .baseUrl(formattedServer)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-            transferWebServiceAPI = transferRetrofit.create(WebServiceAPI.class);
+            try {
+                transferRetrofit = new Retrofit.Builder()
+                        .baseUrl(formattedServer)
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                transferWebServiceAPI = transferRetrofit.create(WebServiceAPI.class);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(MyApplication.context, "couldn't connect to other contact (invalid url)", Toast.LENGTH_LONG).show();
+            }
         }
         webServiceAPI = retrofit.create(WebServiceAPI.class);
     }

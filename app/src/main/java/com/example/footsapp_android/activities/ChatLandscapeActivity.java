@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.RequiresApi;
@@ -57,7 +58,7 @@ public class ChatLandscapeActivity extends AppCompatActivity implements Contacts
         super.onConfigurationChanged(newConfig);
         if(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE)
         {
-            startActivity(new Intent(this, ChatLandscapeActivity.class));
+            startActivity(new Intent(this, ChatsActivity.class));
         }
 
         if(newConfig.orientation == Configuration.ORIENTATION_PORTRAIT)
@@ -96,9 +97,8 @@ public class ChatLandscapeActivity extends AppCompatActivity implements Contacts
         if (chosenContact != null) {
             binding.lvMessages.setVisibility(View.VISIBLE);
             binding.lvMessages.scrollToPosition(messages.size() - 1);
-            List<Message> chosenMessages = new ArrayList<>(messages);
-            chosenMessages.removeIf(m -> !m.getSentFrom().equals(chosenContact.getUsername()));
-            mAdapter.setMessages(chosenMessages);
+            messages = messageDao.get(chosenContact.getUsername());
+            mAdapter.setMessages(messages);
             binding.contactName.setText(this.chosenContact.getNickname());
         }
     }
@@ -123,15 +123,29 @@ public class ChatLandscapeActivity extends AppCompatActivity implements Contacts
         binding.lvContacts.setLayoutManager(new LinearLayoutManager(this));
         contacts = contactDao.index();
         cAdapter.setContacts(contacts);
-        Thread thread = new Thread(contactAPI);
-        thread.start();
+
         try {
-            thread.join();
+            Thread contactsThread = new Thread(contactAPI);
+            contactsThread.start();
+            contactsThread.join();
+            Log.d("contactdao", "asd");
             contacts.clear();
             contacts.addAll(contactDao.index());
-            cAdapter.notifyDataSetChanged();
+            cAdapter.notifyItemRangeInserted(contacts.size(), contacts.size());
         } catch (InterruptedException e) {
             e.printStackTrace();
+        }
+
+        messageDao.nukeTable();
+        for (Contact c : contacts) {
+            MessageAPI messageAPI = new MessageAPI(messageDao, contactDao, LoginAPI.getToken(), c.getUsername(), null);
+            Thread thread = new Thread(messageAPI);
+            thread.start();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
         loadProfileImage();
     }
@@ -147,8 +161,9 @@ public class ChatLandscapeActivity extends AppCompatActivity implements Contacts
         Message message = new Message(content, currentTime, true, chosenContact.getUsername()); // find a way to generate an id number from db
         messageDao.insert(message);
         messages.clear();
-        messages.addAll(messageDao.index());
+        messages.addAll(messageDao.get(chosenContact.getUsername()));
         mAdapter.notifyItemRangeInserted(messages.size(), messages.size());
+        //mAdapter.notifyDataSetChanged();
         binding.lvMessages.smoothScrollToPosition(messages.size() - 1);
         binding.lvMessages.setVisibility(View.VISIBLE);
         binding.inputMsg.setText(null);
@@ -190,6 +205,15 @@ public class ChatLandscapeActivity extends AppCompatActivity implements Contacts
         init();
         setListeners();
 
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        contacts.clear();
+        contacts.addAll(contactDao.index());
+        cAdapter.notifyDataSetChanged();
+        binding.lvMessages.setVisibility(View.GONE);
     }
 
     @Override

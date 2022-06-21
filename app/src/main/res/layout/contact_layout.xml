@@ -61,7 +61,10 @@
                     android:paddingTop="5dp"
                     android:text="contact_last_msg"
                     android:textColor="#000000"
-
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="12sp"
+                    android:autoSizeMaxTextSize="100sp"
+                    android:autoSizeStepGranularity="2sp"
                     app:layout_constraintStart_toStartOf="@+id/profile_image" />
 
                 <TextView

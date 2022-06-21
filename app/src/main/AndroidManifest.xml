@@ -28,6 +28,7 @@
 
         <activity
             android:name=".activities.ChatLandscapeActivity"
+            android:configChanges="orientation|screenSize"
             android:exported="false" />
         <activity
             android:name=".activities.ChatActivity"

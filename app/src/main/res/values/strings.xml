@@ -28,4 +28,5 @@
     <string name="password">Password</string>
     <string name="confirm_password">Confirm password</string>
     <string name="settings">SETTINGS</string>
+    <string name="default_chat_headline">select contact to chat with</string>
 </resources>
