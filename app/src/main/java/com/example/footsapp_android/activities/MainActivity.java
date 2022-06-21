@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
             validInput = false;
         }
 
-        // TODO implement username validation
 
         return validInput;
     }

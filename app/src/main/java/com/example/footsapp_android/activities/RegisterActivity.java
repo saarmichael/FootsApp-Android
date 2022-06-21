@@ -132,7 +132,7 @@ public class RegisterActivity extends AppCompatActivity {
                     putBoolean("has_img", true).
                     apply();
         }
-        /*
+
         // check if password and confirm password are the same
         if (!password.equals(confirmPassword)) {
             showToast("Passwords do not match");
@@ -144,7 +144,7 @@ public class RegisterActivity extends AppCompatActivity {
             binding.etPassword.setError("Password must be at least 8 characters long and contain at least one number, capital letter and special character");
             binding.etPassword.requestFocus();
             return false;
-        }*/
+        }
         // TODO check with the server if the username is already taken
         return validInput;
     }
