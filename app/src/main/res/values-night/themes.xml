@@ -3,7 +3,7 @@
     <style name="Theme.FootsAppAndroid" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/green</item>
-        <item name="colorPrimaryVariant">@color/prime</item>
+        <item name="colorPrimaryVariant">@color/msg_content_send_dark</item>
         <item name="colorOnPrimary">@color/msg_text</item>
 
         <!-- Secondary brand color. -->
