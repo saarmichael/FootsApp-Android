@@ -11,6 +11,7 @@ import androidx.core.app.NotificationManagerCompat;
 
 import com.example.footsapp_android.activities.ChatActivity;
 import com.example.footsapp_android.activities.ChatsActivity;
+import com.example.footsapp_android.activities.MainActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -23,35 +24,32 @@ public class FBService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         if (remoteMessage.getNotification() != null) {
+
             if (Objects.equals(remoteMessage.getNotification().getTitle(), "ReceiveMessage")) {
-                createNotificationChannel();
-                NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "1")
-                        .setSmallIcon(R.drawable.footapp_logo)
-                        .setContentTitle("New message")
-                        .setContentText(remoteMessage.getNotification().getBody())
-                        .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-                notificationManager.notify(1, builder.build());
+                // split to the :
+                String[] split = remoteMessage.getNotification().getBody().split(":");
+                String to = split[0];
+                String from = split[1];
+                String message = split[2];
+                if (to.equals(MainActivity.CURRENT_USER)) {
+                    createNotificationChannel();
+                    NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "1")
+                            .setSmallIcon(R.drawable.footapp_logo)
+                            .setContentTitle("New message")
+                            .setContentText(remoteMessage.getNotification().getBody())
+                            .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                    NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+                    notificationManager.notify(1, builder.build());
+                }
 
                 Intent broadcastIntent = new Intent();
-                broadcastIntent.setAction(ChatActivity.NOTIFY_ACTIVITY_ACTION );
+                broadcastIntent.setAction(ChatActivity.NOTIFY_ACTIVITY_ACTION);
                 broadcastIntent.putExtra("content", remoteMessage.getNotification().getBody());
 
                 sendBroadcast(broadcastIntent);
             } else {
-                String content = remoteMessage.getNotification().getBody();
-
-
-                createNotificationChannel();
-                NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "1")
-                        .setSmallIcon(R.drawable.footapp_logo)
-                        .setContentTitle("New contact")
-                        .setContentText(remoteMessage.getNotification().getBody())
-                        .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-                notificationManager.notify(1, builder.build());
-
                 Intent broadcastIntent = new Intent();
+                broadcastIntent.setAction(ChatsActivity.NOTIFY_ACTIVITY_ACTION);
                 broadcastIntent.setAction(ChatsActivity.NOTIFY_ACTIVITY_ACTION2 );
 
                 sendBroadcast(broadcastIntent);
