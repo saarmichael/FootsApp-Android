@@ -1,5 +1,9 @@
 package com.example.footsapp_android.activities;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -24,6 +28,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ChatActivity extends AppCompatActivity implements MessageListAdapter.OnMessageClickListener {
 
@@ -35,6 +40,8 @@ public class ChatActivity extends AppCompatActivity implements MessageListAdapte
     private PreferenceManager prefManager;
     ContactDao contactDao;
     MessageDao messageDao;
+    public static final String NOTIFY_ACTIVITY_ACTION = "notify_activity";
+    private BroadcastReceiver broadcastReceiver;
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -61,8 +68,7 @@ public class ChatActivity extends AppCompatActivity implements MessageListAdapte
         Integer contactId = getIntent().getIntExtra("contact_id", -1);
         // get the contact from the db
         this.contact = contactDao.get(contactId);
-        this.messages = messageDao.index();
-        messages.removeIf(m -> !m.getSentFrom().equals(contact.getUsername()));
+        this.messages = messageDao.get(contact.getUsername());
         adapter = new MessageListAdapter(this, this);
         binding.lvMessages.setAdapter(adapter);
         binding.lvMessages.setLayoutManager(new LinearLayoutManager(this));
@@ -83,8 +89,7 @@ public class ChatActivity extends AppCompatActivity implements MessageListAdapte
         Message message = new Message(content, currentTime, true, contact.getUsername()); // find a way to generate an id number from db
         messageDao.insert(message);
         messages.clear();
-        messages.addAll(messageDao.index());
-        messages.removeIf(m -> !m.getSentFrom().equals(contact.getUsername()));
+        messages.addAll(messageDao.get(contact.getUsername()));
         adapter.notifyItemRangeInserted(messages.size(), messages.size());
         binding.lvMessages.smoothScrollToPosition(messages.size() - 1);
         binding.lvMessages.setVisibility(View.VISIBLE);
@@ -115,6 +120,45 @@ public class ChatActivity extends AppCompatActivity implements MessageListAdapte
     @Override
     public void onMessageClick(int position) {
         return;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        broadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                if (intent.getAction().equals(NOTIFY_ACTIVITY_ACTION ))
+                {
+                    String content = intent.getExtras().getString("content", null);
+                    String[] info = content.split(": ");
+                    String from = info[0];
+                    String text = info[1];
+                    // TODO: set current time
+                    Message m = new Message(text, "12:00", false, from);
+                    messageDao.insert(m);
+                    if (Objects.equals(from, contact.getUsername())) {
+                        messages.clear();
+                        messages.addAll(messageDao.get(contact.getUsername()));
+                        adapter.notifyDataSetChanged();
+
+                        contact.setLastMessage(text);
+                        contact.setTime("12:00");
+                        contactDao.update(contact);
+                    }
+                }
+            }
+        };
+
+        IntentFilter filter = new IntentFilter( NOTIFY_ACTIVITY_ACTION );
+        registerReceiver(broadcastReceiver, filter);
+    }
+
+    @Override
+    protected void onStop()
+    {
+        super.onStop();
+        unregisterReceiver(broadcastReceiver);
     }
 
 

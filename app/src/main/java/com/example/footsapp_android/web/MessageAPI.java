@@ -49,8 +49,9 @@ public class MessageAPI implements Runnable {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         if (server != null) {
+            String formattedServer = server.replace("localhost", "10.0.2.2") + "/api/";
             transferRetrofit = new Retrofit.Builder()
-                    .baseUrl(server)
+                    .baseUrl(formattedServer)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
             transferWebServiceAPI = transferRetrofit.create(WebServiceAPI.class);

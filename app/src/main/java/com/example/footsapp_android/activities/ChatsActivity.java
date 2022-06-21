@@ -1,6 +1,9 @@
 package com.example.footsapp_android.activities;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -33,6 +36,8 @@ public class ChatsActivity extends AppCompatActivity implements ContactsListAdap
     private ContactsListAdapter adapter;
     // binding
     private ActivityChatsBinding binding;
+    public static final String NOTIFY_ACTIVITY_ACTION = "notify_activity";
+    private BroadcastReceiver broadcastReceiver;
 
     private void loadProfileImage() {
         Boolean hasImg = getApplicationContext().
@@ -101,7 +106,7 @@ public class ChatsActivity extends AppCompatActivity implements ContactsListAdap
             contactsThread.join();
             contacts.clear();
             contacts.addAll(contactDao.index());
-            adapter.notifyDataSetChanged();
+            adapter.notifyItemRangeInserted(contacts.size(), contacts.size());
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -151,6 +156,33 @@ public class ChatsActivity extends AppCompatActivity implements ContactsListAdap
     }
 
 */
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        broadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                if (intent.getAction().equals(NOTIFY_ACTIVITY_ACTION ))
+                {
+                    contacts.clear();
+                    contacts.addAll(contactDao.index());
+                    adapter.notifyDataSetChanged();
+                }
+            }
+        };
+
+        IntentFilter filter = new IntentFilter( NOTIFY_ACTIVITY_ACTION );
+        registerReceiver(broadcastReceiver, filter);
+    }
+
+    @Override
+    protected void onStop()
+    {
+        super.onStop();
+        unregisterReceiver(broadcastReceiver);
+    }
+
 
     @Override
     protected void onRestart() {
