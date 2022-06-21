@@ -72,4 +72,8 @@
         <item name="android:background">@drawable/register_background_image_dark</item>
     </style>
 
+    <style name="Theme.chats_background" parent="Theme.FootsAppAndroid">
+        <item name="android:background">@drawable/background_round_screen_dark</item>
+    </style>
+
 </resources>
