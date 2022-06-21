@@ -141,6 +141,7 @@ public class ChatsActivity extends AppCompatActivity implements ContactsListAdap
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onReceive(Context context, Intent intent) {
+                // receiving new message
                 if (intent.getAction().equals(NOTIFY_ACTIVITY_ACTION ))
                 {
                     String content = intent.getExtras().getString("content", null);
@@ -160,6 +161,7 @@ public class ChatsActivity extends AppCompatActivity implements ContactsListAdap
                     adapter.notifyDataSetChanged();
                 }
 
+                // receiving new chat
                 if (intent.getAction().equals(NOTIFY_ACTIVITY_ACTION2)) {
                     try {
                         Thread contactsThread = new Thread(contactAPI);

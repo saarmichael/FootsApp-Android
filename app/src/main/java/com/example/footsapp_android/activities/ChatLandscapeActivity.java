@@ -1,6 +1,9 @@
 package com.example.footsapp_android.activities;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -32,6 +35,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class ChatLandscapeActivity extends AppCompatActivity implements ContactsListAdapter.OnContactClickListener, MessageListAdapter.OnMessageClickListener {
 
@@ -50,6 +55,11 @@ public class ChatLandscapeActivity extends AppCompatActivity implements Contacts
 
     // binding
     private ActivityChatLandcapeBinding binding;
+
+    // notifications
+    public static final String NOTIFY_ACTIVITY_ACTION = "notify_activity";
+    public static final String NOTIFY_ACTIVITY_ACTION2 = "notify_activity2";
+    private BroadcastReceiver broadcastReceiver;
 
 
     @Override
@@ -210,10 +220,33 @@ public class ChatLandscapeActivity extends AppCompatActivity implements Contacts
     @Override
     protected void onRestart() {
         super.onRestart();
-        contacts.clear();
-        contacts.addAll(contactDao.index());
-        cAdapter.notifyDataSetChanged();
-        binding.lvMessages.setVisibility(View.GONE);
+        try {
+            Thread contactsThread = new Thread(contactAPI);
+            contactsThread.start();
+            contactsThread.join();
+
+            messageDao.nukeTable();
+            for (Contact c : contacts) {
+                MessageAPI messageAPI = new MessageAPI(messageDao, contactDao, LoginAPI.getToken(), c.getUsername(), null);
+                Thread thread = new Thread(messageAPI);
+                thread.start();
+                try {
+                    thread.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            contacts.clear();
+            contacts.addAll(contactDao.index());
+            messages.clear();
+            messages.addAll(messageDao.index());
+            cAdapter.notifyDataSetChanged();
+            mAdapter.notifyDataSetChanged();
+            binding.lvMessages.setVisibility(View.GONE);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -228,4 +261,63 @@ public class ChatLandscapeActivity extends AppCompatActivity implements Contacts
     public void onMessageClick(int position) {
         return;
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        broadcastReceiver = new BroadcastReceiver() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                // receiving new message
+                if (intent.getAction().equals(NOTIFY_ACTIVITY_ACTION ))
+                {
+                    String content = intent.getExtras().getString("content", null);
+                    String[] info = content.split(": ");
+                    String from = info[0];
+                    String text = info[1];
+                    Contact contact = contacts.stream().filter(c -> Objects.equals(c.getUsername(), from))
+                            .collect(Collectors.toList()).get(0);
+                    String currentTime = ChatActivity.getCurrentTime();
+                    Message m = new Message(text, currentTime, false, from);
+                    messageDao.insert(m);
+                    contact.setLastMessage(text);
+                    contact.setTime(currentTime);
+                    contactDao.update(contact);
+                    contacts.clear();
+                    contacts.addAll(contactDao.index());
+                    messages.clear();
+                    messages.addAll(messageDao.get(chosenContact.getUsername()));
+                    cAdapter.notifyDataSetChanged();
+                    mAdapter.notifyDataSetChanged();
+                }
+
+                // receiving new chat
+                if (intent.getAction().equals(NOTIFY_ACTIVITY_ACTION2)) {
+                    try {
+                        Thread contactsThread = new Thread(contactAPI);
+                        contactsThread.start();
+                        contactsThread.join();
+                        contacts.clear();
+                        contacts.addAll(contactDao.index());
+                        cAdapter.notifyItemRangeInserted(contacts.size(), contacts.size());
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+
+        IntentFilter filter = new IntentFilter( NOTIFY_ACTIVITY_ACTION );
+        filter.addAction(NOTIFY_ACTIVITY_ACTION2);
+        registerReceiver(broadcastReceiver, filter);
+    }
+
+    @Override
+    protected void onStop()
+    {
+        super.onStop();
+        unregisterReceiver(broadcastReceiver);
+    }
+
 }
