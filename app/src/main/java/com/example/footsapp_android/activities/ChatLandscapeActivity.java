@@ -220,6 +220,7 @@ public class ChatLandscapeActivity extends AppCompatActivity implements Contacts
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityChatLandcapeBinding.inflate(getLayoutInflater());
+        binding.chatsHeadline.setText(MainActivity.CURRENT_USER);
         setContentView(binding.getRoot());
         // get the intent's extra
         init(getIntent().getBooleanExtra("fromChat", false));

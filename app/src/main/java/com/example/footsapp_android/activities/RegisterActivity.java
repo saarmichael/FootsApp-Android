@@ -59,6 +59,7 @@ public class RegisterActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 if (registerAPI.isSuccess()) {
+                    MainActivity.CURRENT_USER = username;
                     MainActivity.loginThroughAPI(username, password);
                     Intent intent = new Intent(this, ChatsActivity.class);
                     startActivity(intent);
