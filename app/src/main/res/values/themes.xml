@@ -2,15 +2,99 @@
     <!-- Base application theme. -->
     <style name="Theme.FootsAppAndroid" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimary">@color/prime</item>
+        <item name="colorPrimaryVariant">@color/background_screen</item>
+        <item name="colorOnPrimary">@color/msg_text</item>
+        <item name="android:textColorPrimary">@color/text</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondary">@color/buttons</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
+
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="Theme.text_view" parent="Theme.FootsAppAndroid">
+        <item name="android:color">@color/text</item>
+    </style>
+
+    <style name="Theme.headline_text" parent="Theme.FootsAppAndroid">
+        <item name="android:color">@color/text</item>
+    </style>
+
+    <style name="Theme.message_text" parent="Theme.FootsAppAndroid">
+        <item name="android:color">@color/text</item>
+    </style>
+
+    <style name="Theme.hint_text" parent="Theme.FootsAppAndroid">
+        <item name="android:color">@color/text</item>
+    </style>
+
+    <style name="Theme.main_buttons" parent="Theme.FootsAppAndroid">
+        <item name="android:backgroundTint">@color/buttons</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:fontFamily">@font/righteous</item>
+    </style>
+
+    <style name="Theme.secondary_buttons" parent="Theme.FootsAppAndroid">
+        <item name="android:backgroundTint">@color/secondary_button</item>
+        <item name="android:textColor">@color/msg_text_dark</item>
+        <item name="tint">@color/white</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:fontFamily">@font/righteous</item>
+    </style>
+
+
+    <style name="Theme.green_background" parent="Theme.FootsAppAndroid">
+        <item name="android:background">@color/background_screen</item>
+    </style>
+
+    <style name="Theme.input_background" parent="Theme.FootsAppAndroid">
+        <item name="android:background">@drawable/background_input</item>
+        <item name="android:textColorHint">@color/text</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:fontFamily">@font/righteous</item>
+    </style>
+
+    <style name="Theme.colorless_background" parent="Theme.FootsAppAndroid">
+        <item name="android:color">@color/login_background</item>
+    </style>
+
+    <style name="Theme.msg_sent" parent="Theme.FootsAppAndroid">
+        <item name="android:background">@drawable/message_sent_background</item>
+        <item name="android:textColor">@color/msg_text</item>
+    </style>
+
+    <style name="Theme.msg_received" parent="Theme.FootsAppAndroid">
+        <item name="android:background">@drawable/message_recieved_background</item>
+        <item name="android:textColor">@color/msg_text</item>
+    </style>
+
+    <style name="Theme.register_image" parent="Theme.FootsAppAndroid">
+        <item name="android:background">@drawable/register_background_image</item>
+    </style>
+
+    <style name="Theme.chats_background" parent="Theme.FootsAppAndroid">
+        <item name="android:background">@drawable/background_tound_screen</item>
+    </style>
+
+    <style name="Theme.chat_background" parent="Theme.FootsAppAndroid">
+        <item name="android:background">@drawable/background_chat_top</item>
+    </style>
+
+    <style name="Theme.chat_input" parent="Theme.FootsAppAndroid">
+        <item name="android:background">@drawable/input_background</item>
+        <item name="android:textColor">@color/msg_text</item>
+        <item name="android:textColorHint">@color/msg_text</item>
+    </style>
+
+
+    <style name="Theme.send_icon" parent="Theme.FootsAppAndroid">
+        <item name="android:tint">@color/msg_text</item>
+    </style>
+
+
 </resources>

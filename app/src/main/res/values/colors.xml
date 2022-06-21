@@ -7,4 +7,18 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="green">#28A745</color>
+    <color name="msg_content_send_dark">#0288D1</color>
+    <color name="msg_content_recieve_dark">#C2185B</color>
+    <color name="msg_content_send">#51BCF7</color>
+    <color name="msg_content_recieve">#FF5B93</color>
+    <color name="msg_text_dark">#B3E5FC</color>
+    <color name="msg_text">#212121</color>
+    <color name="login_background">#D6D8D9</color>
+    <color name="text">#212121</color>
+    <color name="prime">#0288D1</color>
+    <color name="buttons">#B3E5FC</color>
+    <color name="background_screen">#03A9F4</color>
+    <color name="input_fields">#FFFFFF</color>
+    <color name="secondary_button">#00BCD4</color>
 </resources>

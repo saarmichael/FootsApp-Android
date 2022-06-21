@@ -13,4 +13,20 @@
     <string name="login_tv_no_account">don\'t have an account?</string>
     <string name="register_tv_account_msg">already have an account?</string>
     <string name="register_tv_login">sign in 💖</string>
+    <string name="friend_s_username">friend\'s username</string>
+    <string name="add_contact">add contact</string>
+    <string name="friend_s_nickname">friend\'s nickname</string>
+    <string name="friend_s_server">friend\'s server</string>
+    <string name="back_to_chats">go back to chats</string>
+    <string name="BaseUrl">http://10.0.2.2:7291/api/</string>
+    <string name="chats_headline">Chats</string>
+    <string name="send_a_message">send a message</string>
+    <string name="welcome_to_footsapp">Welcome to FootsApp!</string>
+    <string name="add_image">select picture</string>
+    <string name="name">Username</string>
+    <string name="nickname">Nickname</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="settings">SETTINGS</string>
+    <string name="default_chat_headline">select contact to chat with</string>
 </resources>
