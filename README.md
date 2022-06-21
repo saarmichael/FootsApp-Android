@@ -4,7 +4,7 @@
 ### Android instructions: (this repository)
 - Work on branch: master.
 - When adding a new contact's server enter a full address starting with *http*. example: http://localhost:7291
-- open and server simultaneously.
+- open app and server simultaneously.
 
 
 ### Server instructions: (https://github.com/dam-ari/FootsAppServer)
