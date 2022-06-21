@@ -3,6 +3,7 @@ package com.example.footsapp_android.activities;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -42,5 +43,11 @@ public class AddChatActivity extends AppCompatActivity {
             contactAPI.post(contact);
             finish();
         });
+
+        TextView btnBack = findViewById(R.id.tvChatsActivity);
+        btnBack.setOnClickListener(view -> {
+            finish();
+        });
+
     }
 }
