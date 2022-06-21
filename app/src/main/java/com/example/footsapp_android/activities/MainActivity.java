@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     private static String deviceToken;
-
+    public static String CURRENT_USER = "";
 
     // private method for username and password validation
     private boolean validateLogin(String username, String password) {
@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
                 if (token != null) {
                     // move the error message from etPassword
                     binding.etPassword.setError(null);
+                    CURRENT_USER = username;
                     // move to contacts activity
                     // check if configuration is landscape
                     if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
