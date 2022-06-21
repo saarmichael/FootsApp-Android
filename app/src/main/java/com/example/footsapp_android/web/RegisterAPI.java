@@ -1,7 +1,6 @@
 package com.example.footsapp_android.web;
 
 import com.example.footsapp_android.MyApplication;
-import com.example.footsapp_android.R;
 import com.example.footsapp_android.entities.User;
 
 import java.io.IOException;
@@ -22,7 +21,7 @@ public class RegisterAPI implements Runnable{
     public RegisterAPI(User user) {
 
         retrofit = new Retrofit.Builder()
-                .baseUrl(MyApplication.context.getString(R.string.BaseUrl))
+                .baseUrl(MyApplication.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         webServiceAPI = retrofit.create(WebServiceAPI.class);

@@ -59,16 +59,14 @@ public class ChatsActivity extends AppCompatActivity implements ContactsListAdap
     }
 
     @Override
-    public void onConfigurationChanged(Configuration newConfig)
-    {
+    public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        if(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE)
-        {
-            startActivity(new Intent(this, ChatLandscapeActivity.class));
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            startActivity(new Intent(this, ChatLandscapeActivity.class).
+                    putExtra("fromChat", false));
         }
 
-        if(newConfig.orientation == Configuration.ORIENTATION_PORTRAIT)
-        {
+        if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
             startActivity(new Intent(this, ChatsActivity.class));
         }
     }
@@ -166,8 +164,7 @@ public class ChatsActivity extends AppCompatActivity implements ContactsListAdap
         broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                if (intent.getAction().equals(NOTIFY_ACTIVITY_ACTION ))
-                {
+                if (intent.getAction().equals(NOTIFY_ACTIVITY_ACTION)) {
                     contacts.clear();
                     contacts.addAll(contactDao.index());
                     adapter.notifyDataSetChanged();
@@ -175,13 +172,12 @@ public class ChatsActivity extends AppCompatActivity implements ContactsListAdap
             }
         };
 
-        IntentFilter filter = new IntentFilter( NOTIFY_ACTIVITY_ACTION );
+        IntentFilter filter = new IntentFilter(NOTIFY_ACTIVITY_ACTION);
         registerReceiver(broadcastReceiver, filter);
     }
 
     @Override
-    protected void onStop()
-    {
+    protected void onStop() {
         super.onStop();
         unregisterReceiver(broadcastReceiver);
     }

@@ -33,6 +33,7 @@
         <activity
             android:name=".activities.ChatActivity"
             android:exported="false"
+            android:configChanges="orientation|screenSize"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".activities.ChangeThemeActivity"

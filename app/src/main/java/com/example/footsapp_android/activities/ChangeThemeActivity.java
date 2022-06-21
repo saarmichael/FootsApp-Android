@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import com.example.footsapp_android.MyApplication;
 import com.example.footsapp_android.R;
 import com.example.footsapp_android.databinding.ActivityChangeThemeBinding;
 
@@ -26,6 +27,13 @@ public class ChangeThemeActivity extends AppCompatActivity {
             } else {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             }
+        });
+
+        binding.btnServerUpdate.setOnClickListener(v -> {
+            // set R.string.server_url to the server url
+            MyApplication.changeUrl(binding.serverInput.getText().toString());
+            // go back
+            finish();
         });
 
     }

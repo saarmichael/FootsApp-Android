@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -43,6 +44,23 @@ public class ChatActivity extends AppCompatActivity implements MessageListAdapte
     public static final String NOTIFY_ACTIVITY_ACTION = "notify_activity";
     private BroadcastReceiver broadcastReceiver;
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig)
+    {
+        super.onConfigurationChanged(newConfig);
+        if(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE)
+        {
+            startActivity(new Intent(this, ChatLandscapeActivity.class).
+                    putExtra("username", contact.getUsername()).
+                    putExtra("fromChat", true));
+        }
+
+        if(newConfig.orientation == Configuration.ORIENTATION_PORTRAIT)
+        {
+            startActivity(new Intent(this, ChatsActivity.class));
+        }
+    }
+
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -56,6 +74,8 @@ public class ChatActivity extends AppCompatActivity implements MessageListAdapte
         //Button buttonSend = findViewById(R.id.button_send);
 
     }
+
+
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)

@@ -38,11 +38,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_gravity="center_vertical"
             android:layout_marginTop="120dp"
 
-            android:layout_gravity="center_vertical"
-            >
+            android:orientation="vertical">
 
             <EditText
                 android:id="@+id/etUsername"
@@ -91,16 +90,28 @@
             android:textColor="@color/text"
             app:backgroundTint="@color/buttons" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/buttonSettings"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+
+
+        <FrameLayout
+            android:id="@+id/send_layout"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_gravity="center"
-            android:layout_marginTop="40dp"
-            android:fontFamily="@font/righteous"
-            android:text="@string/settings"
-            android:textColor="@color/text"
-            app:backgroundTint="@color/buttons" />
+            android:layout_marginTop="20dp"
+            android:background="@drawable/input_background"
+            android:gravity="center_vertical">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/buttonSettings"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
+                android:padding="8dp"
+                android:src="@drawable/ic_settings"
+                android:tint="@color/msg_text" />
+
+        </FrameLayout>
 
         <LinearLayout
             android:id="@+id/LoginRedirectLayout"
