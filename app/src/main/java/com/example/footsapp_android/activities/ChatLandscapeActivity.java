@@ -113,7 +113,8 @@ public class ChatLandscapeActivity extends AppCompatActivity implements Contacts
         }
     }
 
-    private void init() {
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void init(boolean isFromChat) {
         db = AppDB.getDatabase(this);
         contactDao = db.contactDao();
         contactAPI = new ContactAPI(contactDao, LoginAPI.getToken());
@@ -133,6 +134,13 @@ public class ChatLandscapeActivity extends AppCompatActivity implements Contacts
         binding.lvContacts.setLayoutManager(new LinearLayoutManager(this));
         contacts = contactDao.index();
         cAdapter.setContacts(contacts);
+
+        if (isFromChat) {
+            String username = getIntent().getStringExtra("username");
+            // get from contactDao the specific contact according to username
+            chosenContact = contactDao.index().stream().filter(c -> c.getUsername().equals(username)).findFirst().get();
+            showChat();
+        }
 
         try {
             Thread contactsThread = new Thread(contactAPI);
@@ -212,7 +220,8 @@ public class ChatLandscapeActivity extends AppCompatActivity implements Contacts
         super.onCreate(savedInstanceState);
         binding = ActivityChatLandcapeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        init();
+        // get the intent's extra
+        init(getIntent().getBooleanExtra("fromChat", false));
         setListeners();
 
     }

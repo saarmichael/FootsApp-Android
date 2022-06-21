@@ -65,16 +65,14 @@ public class ChatsActivity extends AppCompatActivity implements ContactsListAdap
     }
 
     @Override
-    public void onConfigurationChanged(Configuration newConfig)
-    {
+    public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        if(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE)
-        {
-            startActivity(new Intent(this, ChatLandscapeActivity.class));
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            startActivity(new Intent(this, ChatLandscapeActivity.class).
+                    putExtra("fromChat", false));
         }
 
-        if(newConfig.orientation == Configuration.ORIENTATION_PORTRAIT)
-        {
+        if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
             startActivity(new Intent(this, ChatsActivity.class));
         }
     }
@@ -183,8 +181,7 @@ public class ChatsActivity extends AppCompatActivity implements ContactsListAdap
     }
 
     @Override
-    protected void onStop()
-    {
+    protected void onStop() {
         super.onStop();
         unregisterReceiver(broadcastReceiver);
     }

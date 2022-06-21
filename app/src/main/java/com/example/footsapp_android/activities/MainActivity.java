@@ -1,6 +1,7 @@
 package com.example.footsapp_android.activities;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -79,8 +80,17 @@ public class MainActivity extends AppCompatActivity {
                     // move the error message from etPassword
                     binding.etPassword.setError(null);
                     // move to contacts activity
-                    Intent intent = new Intent(this, ChatsActivity.class);
-                    startActivity(intent);
+                    // check if configuration is landscape
+                    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                        // start ChatLandscapeActivity
+                        Intent i = new Intent(this, ChatLandscapeActivity.class);
+                        startActivity(i);
+                    } else {
+                        // start ChatsActivity
+                        Intent i = new Intent(this, ChatsActivity.class);
+                        startActivity(i);
+                    }
+
                 } else {
                     binding.etPassword.setError("Invalid username or password");
                 }

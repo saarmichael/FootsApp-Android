@@ -5,7 +5,6 @@ import android.widget.Toast;
 import com.example.footsapp_android.ContactDao;
 import com.example.footsapp_android.MessageDao;
 import com.example.footsapp_android.MyApplication;
-import com.example.footsapp_android.R;
 import com.example.footsapp_android.entities.Message;
 import com.example.footsapp_android.entities.Transfer;
 
@@ -46,7 +45,7 @@ public class MessageAPI implements Runnable {
 
 
         retrofit = new Retrofit.Builder()
-                .baseUrl(MyApplication.context.getString(R.string.BaseUrl))
+                .baseUrl(MyApplication.BASE_URL)
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();

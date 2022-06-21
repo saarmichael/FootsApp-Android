@@ -1,7 +1,6 @@
 package com.example.footsapp_android.web;
 
 import com.example.footsapp_android.MyApplication;
-import com.example.footsapp_android.R;
 
 import java.io.IOException;
 
@@ -37,7 +36,7 @@ public class LoginAPI implements Runnable{
 
 
         retrofit = new Retrofit.Builder()
-                .baseUrl(MyApplication.context.getString(R.string.BaseUrl))
+                .baseUrl(MyApplication.BASE_URL)
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
