@@ -46,18 +46,15 @@ public class ChatActivity extends AppCompatActivity implements MessageListAdapte
     private BroadcastReceiver broadcastReceiver;
 
     @Override
-    public void onConfigurationChanged(Configuration newConfig)
-    {
+    public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        if(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE)
-        {
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             startActivity(new Intent(this, ChatLandscapeActivity.class).
                     putExtra("username", contact.getUsername()).
                     putExtra("fromChat", true));
         }
 
-        if(newConfig.orientation == Configuration.ORIENTATION_PORTRAIT)
-        {
+        if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
             startActivity(new Intent(this, ChatsActivity.class));
         }
     }
@@ -75,8 +72,6 @@ public class ChatActivity extends AppCompatActivity implements MessageListAdapte
         //Button buttonSend = findViewById(R.id.button_send);
 
     }
-
-
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -130,16 +125,18 @@ public class ChatActivity extends AppCompatActivity implements MessageListAdapte
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void setListeners() {
         binding.buttonSend.setOnClickListener(view -> {
+
             MessageAPI messageAPI = new MessageAPI(messageDao, contactDao, LoginAPI.getToken(), contact.getUsername(), contact.getServer());
             String myUser = getApplicationContext().
                     getSharedPreferences("user", MODE_PRIVATE).
                     getString("my_user", null);
             Transfer transfer = new Transfer(myUser, contact.getUsername(), binding.inputMsg.getText().toString());
-            messageAPI.post(binding.inputMsg.getText().toString(), transfer);
+            if (messageAPI.post(binding.inputMsg.getText().toString(), transfer)) {
+                sendMessage();
+            }
 
-            sendMessage();
+
         });
-
 
 
     }
@@ -156,8 +153,7 @@ public class ChatActivity extends AppCompatActivity implements MessageListAdapte
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onReceive(Context context, Intent intent) {
-                if (intent.getAction().equals(NOTIFY_ACTIVITY_ACTION ))
-                {
+                if (intent.getAction().equals(NOTIFY_ACTIVITY_ACTION)) {
                     String content = intent.getExtras().getString("content", null);
                     String[] info = content.split(": ");
                     String from = info[0];
@@ -181,7 +177,7 @@ public class ChatActivity extends AppCompatActivity implements MessageListAdapte
             }
         };
 
-        IntentFilter filter = new IntentFilter( NOTIFY_ACTIVITY_ACTION );
+        IntentFilter filter = new IntentFilter(NOTIFY_ACTIVITY_ACTION);
         registerReceiver(broadcastReceiver, filter);
     }
 
@@ -191,8 +187,7 @@ public class ChatActivity extends AppCompatActivity implements MessageListAdapte
     }
 
     @Override
-    protected void onStop()
-    {
+    protected void onStop() {
         super.onStop();
         unregisterReceiver(broadcastReceiver);
     }

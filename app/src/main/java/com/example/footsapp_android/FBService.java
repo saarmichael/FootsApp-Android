@@ -23,39 +23,51 @@ public class FBService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
+        String[] split = remoteMessage.getNotification().getBody().split(": ");
+
         if (remoteMessage.getNotification() != null) {
 
             if (Objects.equals(remoteMessage.getNotification().getTitle(), "ReceiveMessage")) {
-                // split to the :
-                String[] split = remoteMessage.getNotification().getBody().split(":");
-                String to = split[0];
-                String from = split[1];
-                String message = split[2];
-                if (to.equals(MainActivity.CURRENT_USER)) {
-                    createNotificationChannel();
-                    NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "1")
-                            .setSmallIcon(R.drawable.footapp_logo)
-                            .setContentTitle("New message")
-                            .setContentText(remoteMessage.getNotification().getBody())
-                            .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-                    NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-                    notificationManager.notify(1, builder.build());
+                if (!split[2].equals(MainActivity.CURRENT_USER)) {
+                    return;
                 }
+                createNotificationChannel();
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "1")
+                        .setSmallIcon(R.drawable.footapp_logo)
+                        .setContentTitle("New message")
+                        .setContentText(split[0] + ":" + split[1])
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+                notificationManager.notify(1, builder.build());
+
 
                 Intent broadcastIntent = new Intent();
                 broadcastIntent.setAction(ChatActivity.NOTIFY_ACTIVITY_ACTION);
                 broadcastIntent.putExtra("content", remoteMessage.getNotification().getBody());
 
                 sendBroadcast(broadcastIntent);
+
             } else {
+                if (!split[1].equals(MainActivity.CURRENT_USER)) {
+                    return;
+                }
+                createNotificationChannel();
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "1")
+                        .setSmallIcon(R.drawable.footapp_logo)
+                        .setContentTitle("New contact")
+                        .setContentText("added by" + split[0])
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+                notificationManager.notify(1, builder.build());
+
                 Intent broadcastIntent = new Intent();
-                broadcastIntent.setAction(ChatsActivity.NOTIFY_ACTIVITY_ACTION);
-                broadcastIntent.setAction(ChatsActivity.NOTIFY_ACTIVITY_ACTION2 );
+                broadcastIntent.setAction(ChatsActivity.NOTIFY_ACTIVITY_ACTION2);
 
                 sendBroadcast(broadcastIntent);
             }
         }
     }
+
 
     private void createNotificationChannel() {
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BASE) {

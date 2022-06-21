@@ -202,14 +202,15 @@ public class ChatLandscapeActivity extends AppCompatActivity implements Contacts
 
         binding.buttonSend.setOnClickListener(view -> {
             String content = binding.inputMsg.getText().toString();
-            sendMessage();
+
             MessageAPI messageAPI = new MessageAPI(messageDao, contactDao, LoginAPI.getToken(), chosenContact.getUsername(), chosenContact.getServer());
             String myUser = getApplicationContext().
                     getSharedPreferences("user", MODE_PRIVATE).
                     getString("my_user", null);
             Transfer transfer = new Transfer(myUser, chosenContact.getUsername(), content);
-            messageAPI.post(content, transfer);
-
+            if (messageAPI.post(content, transfer)) {
+                sendMessage();
+            }
         });
 
     }
@@ -283,8 +284,8 @@ public class ChatLandscapeActivity extends AppCompatActivity implements Contacts
                 {
                     String content = intent.getExtras().getString("content", null);
                     String[] info = content.split(": ");
-                    String from = info[0];
-                    String text = info[1];
+                    String from = info[1];
+                    String text = info[2];
                     Contact contact = contacts.stream().filter(c -> Objects.equals(c.getUsername(), from))
                             .collect(Collectors.toList()).get(0);
                     String currentTime = ChatActivity.getCurrentTime();

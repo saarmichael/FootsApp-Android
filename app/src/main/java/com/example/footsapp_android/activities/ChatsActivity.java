@@ -190,13 +190,14 @@ public class ChatsActivity extends AppCompatActivity implements ContactsListAdap
     @Override
     protected void onRestart() {
         super.onRestart();
+        contacts.clear();
         try {
             Thread contactsThread = new Thread(contactAPI);
             contactsThread.start();
             contactsThread.join();
             contacts.clear();
             contacts.addAll(contactDao.index());
-            adapter.notifyItemRangeInserted(contacts.size(), contacts.size());
+            adapter.notifyDataSetChanged();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

@@ -103,28 +103,36 @@ public class MessageAPI implements Runnable {
         }
     }
 
-    public void post(String content, Transfer transfer) {
-        Call<Void> call = webServiceAPI.createMessage(contactName, content);
-        call.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-            }
+    public Boolean post(String content, Transfer transfer) {
 
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-            }
-        });
 
-        Call<Void> callTransfer = transferWebServiceAPI.transfer(transfer);
-        callTransfer.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> callTransfer, Response<Void> response) {
-            }
+        try {
+            Call<Void> callTransfer = transferWebServiceAPI.transfer(transfer);
+            callTransfer.enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> callTransfer, Response<Void> response) {
+                }
 
-            @Override
-            public void onFailure(Call<Void> callTransfer, Throwable t) {
-            }
-        });
+                @Override
+                public void onFailure(Call<Void> callTransfer, Throwable t) {
+                }
+            });
+
+            Call<Void> call = webServiceAPI.createMessage(contactName, content);
+            call.enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, Response<Void> response) {
+                }
+
+                @Override
+                public void onFailure(Call<Void> call, Throwable t) {
+                }
+            });
+            return true;
+        } catch (Exception ignored) {
+            return false;
+        }
+
     }
 
 
