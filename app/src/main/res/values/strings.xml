@@ -18,7 +18,7 @@
     <string name="friend_s_nickname">friend\'s nickname</string>
     <string name="friend_s_server">friend\'s server</string>
     <string name="back_to_chats">go back to chats</string>
-    <string name="BaseUrl">http://10.0.2.2:71234291/api/</string>
+    <string name="BaseUrl">http://10.0.2.2:7291/api/</string>
     <string name="chats_headline">Chats</string>
     <string name="send_a_message">send a message</string>
     <string name="welcome_to_footsapp">Welcome to FootsApp!</string>
